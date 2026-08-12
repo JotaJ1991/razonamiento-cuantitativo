@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 1 — Geometría y bases de álgebra | Razonamiento Cuantitativo</title>
+<style>
+/* ============ BASE (misma estética del deck introductorio) ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --azul:#0b2545; --azul2:#13315c; --azul3:#1d4e89;
+  --oro:#e0a80d; --oro2:#ffd166;
+  --verde:#1b998b; --rojo:#e63946; --violeta:#7b2cbf;
+  --claro:#f6f8fc; --blanco:#fff; --gris:#64748b;
+  --sombra:0 20px 50px rgba(11,37,69,.18);
+  --sombra2:0 8px 24px rgba(11,37,69,.12);
+}
+html,body{height:100%}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  background:
+    radial-gradient(1200px 700px at 10% -10%, #1d4e89 0%, transparent 55%),
+    radial-gradient(900px 600px at 100% 110%, #7b2cbf22 0%, transparent 60%),
+    linear-gradient(135deg,#081b33 0%,#0b2545 55%,#13315c 100%);
+  color:#0f172a; overflow:hidden;
+}
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;padding:44px 56px 86px;overflow-y:auto;
+  animation:entra .55s cubic-bezier(.22,1,.36,1) both}
+.slide.on{display:block}
+@keyframes entra{from{opacity:0;transform:translateY(28px) scale(.985)}to{opacity:1;transform:none}}
+.slide::-webkit-scrollbar{width:8px}
+.slide::-webkit-scrollbar-thumb{background:#ffffff44;border-radius:8px}
+.card{background:var(--blanco);border-radius:26px;box-shadow:var(--sombra);padding:34px 40px;
+  max-width:1280px;margin:0 auto;min-height:calc(100vh - 150px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:7px;
+  background:linear-gradient(90deg,var(--azul),var(--verde),var(--oro),var(--rojo))}
+
+h1{font-size:clamp(30px,4.2vw,54px);line-height:1.08;color:var(--azul);letter-spacing:-.5px}
+h2{font-size:clamp(23px,2.8vw,36px);color:var(--azul);margin-bottom:4px;letter-spacing:-.3px}
+h3{font-size:19px;color:var(--azul2);margin-bottom:8px}
+h4{font-size:16px;color:var(--azul2)}
+p{font-size:16.5px;line-height:1.62;color:#334155}
+.lead{font-size:18.5px;color:#475569;line-height:1.7}
+.sub{color:var(--gris);font-size:14px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700}
+.hl{background:linear-gradient(180deg,transparent 58%,var(--oro2) 58%);padding:0 4px;font-weight:700;color:var(--azul)}
+.tit{display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.tit .ico{width:58px;height:58px;flex:0 0 58px;border-radius:18px;display:grid;place-items:center;
+  font-size:28px;background:linear-gradient(135deg,var(--azul3),var(--azul));color:#fff;
+  box-shadow:0 10px 22px rgba(29,78,137,.35)}
+
+/* portada */
+.portada{min-height:calc(100vh - 150px);display:grid;grid-template-columns:1.1fr .9fr;gap:40px;
+  align-items:center;color:#fff;max-width:1240px;margin:0 auto}
+.badge{display:inline-flex;align-items:center;gap:9px;background:#ffffff1f;border:1px solid #ffffff38;
+  color:#fff;padding:9px 18px;border-radius:999px;font-size:13.5px;font-weight:700;letter-spacing:1.4px;
+  backdrop-filter:blur(6px);margin-bottom:20px}
+.portada h1{color:#fff;text-shadow:0 6px 30px rgba(0,0,0,.35)}
+.portada h1 span{display:block;background:linear-gradient(90deg,var(--oro2),#fff 60%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.portada .lead{color:#dbe7f5;margin-top:16px;max-width:560px}
+.flot{animation:flot 5.5s ease-in-out infinite}
+@keyframes flot{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+
+/* grids */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.g23{display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:start}
+.g32{display:grid;grid-template-columns:.8fr 1.2fr;gap:26px;align-items:start}
+
+.box{background:var(--claro);border:1px solid #e2e8f0;border-radius:18px;padding:20px;
+  transition:.25s;position:relative;overflow:hidden}
+.box:hover{transform:translateY(-5px);box-shadow:var(--sombra2);border-color:var(--azul3)}
+.box .n{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
+  font-weight:800;color:#fff;font-size:18px;margin-bottom:11px;background:var(--azul3)}
+.box p{font-size:15px}
+.box.oro .n{background:var(--oro)} .box.verde .n{background:var(--verde)}
+.box.rojo .n{background:var(--rojo)} .box.violeta .n{background:var(--violeta)}
+
+.kpi{background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;border-radius:20px;
+  padding:20px 16px;text-align:center;box-shadow:var(--sombra2)}
+.kpi .num{font-size:40px;font-weight:800;line-height:1;
+  background:linear-gradient(90deg,var(--oro2),#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.kpi .lbl{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#b9cde4;margin-top:7px;font-weight:700}
+
+/* imágenes */
+.foto{position:relative;border-radius:20px;overflow:hidden;
+  background:linear-gradient(135deg,var(--azul3),var(--violeta));display:grid;place-items:center;box-shadow:var(--sombra2)}
+.foto img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:2}
+.foto img.fail{display:none}
+.foto .emo{position:absolute;font-size:60px;opacity:.85;z-index:1}
+.foto .cap{position:absolute;left:0;right:0;bottom:0;z-index:3;
+  background:linear-gradient(transparent,rgba(6,20,38,.92));color:#fff;padding:26px 16px 13px;font-size:13.5px;font-weight:600}
+
+/* ====== SIMULADORES ====== */
+.sim{background:linear-gradient(150deg,#0b2545,#1d4e89);border-radius:22px;padding:24px 26px;color:#fff;
+  box-shadow:var(--sombra)}
+.sim h3{color:var(--oro2);font-size:19px;display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.sim .tag{display:inline-block;background:var(--oro);color:#2b1a00;font-size:11px;font-weight:800;
+  letter-spacing:1.5px;padding:4px 10px;border-radius:999px;text-transform:uppercase}
+.ctrl{margin-top:14px}
+.ctrl label{display:flex;justify-content:space-between;align-items:center;color:#cfe0f2;font-size:14px;
+  font-weight:700;margin-bottom:7px}
+.ctrl label b{color:var(--oro2);font-size:17px;font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;height:7px;border-radius:99px;-webkit-appearance:none;appearance:none;
+  background:#ffffff2e;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+  background:var(--oro2);border:3px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.4);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--oro2);
+  border:3px solid #fff;cursor:pointer}
+input[type=number],input[type=text]{background:#ffffff17;border:1.5px solid #ffffff3d;color:#fff;
+  border-radius:11px;padding:11px 14px;font-size:17px;font-weight:700;width:100%;font-family:inherit}
+input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--oro2);background:#ffffff24}
+.out{background:#ffffff17;border:1.5px solid #ffffff30;border-radius:14px;padding:16px 18px;margin-top:14px}
+.out .k{color:#a9c2de;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;font-weight:800}
+.out .v{font-size:27px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;line-height:1.3;margin-top:3px}
+.out .v small{font-size:15px;color:var(--oro2);font-weight:700}
+.btn2{background:var(--oro);color:#2b1a00;border:none;border-radius:12px;padding:11px 20px;
+  font-size:15px;font-weight:800;cursor:pointer;transition:.2s;font-family:inherit}
+.btn2:hover{background:var(--oro2);transform:translateY(-2px)}
+.btn2:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn3{background:#ffffff1f;border:1.5px solid #ffffff3d;color:#fff;border-radius:12px;padding:10px 17px;
+  font-size:14px;font-weight:700;cursor:pointer;transition:.2s;font-family:inherit}
+.btn3:hover{background:#ffffff33}
+.btn3.act{background:var(--oro);color:#2b1a00;border-color:var(--oro)}
+
+/* fórmulas */
+.form{background:#fffbeb;border:2px dashed var(--oro);border-radius:16px;padding:16px 20px;
+  text-align:center;font-size:23px;font-weight:800;color:#6b4d00;letter-spacing:.5px}
+.form small{display:block;font-size:13px;font-weight:600;color:#8a6100;letter-spacing:1.5px;
+  text-transform:uppercase;margin-top:7px}
+.formd{background:#0b2545;border-radius:14px;padding:15px 18px;text-align:center;font-size:22px;
+  font-weight:800;color:var(--oro2);letter-spacing:1px}
+
+/* pasos de operación */
+.paso-op{background:#ffffff14;border-left:4px solid #ffffff35;border-radius:0 12px 12px 0;
+  padding:12px 16px;margin-top:10px;opacity:.35;transition:.4s;font-size:17px}
+.paso-op.on{opacity:1;border-left-color:var(--oro);background:#ffffff26}
+.paso-op .q{color:#a9c2de;font-size:12.5px;letter-spacing:1.4px;text-transform:uppercase;font-weight:800;display:block;margin-bottom:4px}
+.paso-op code{font-family:'Consolas','Courier New',monospace;font-size:19px;color:#fff;font-weight:700}
+.paso-op mark{background:var(--oro);color:#2b1a00;padding:1px 5px;border-radius:5px;font-weight:800}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
+.chip{background:#eef4fb;border:1px solid #cfe0f2;color:var(--azul2);padding:7px 14px;border-radius:999px;
+  font-size:13.5px;font-weight:600}
+.chip.o{background:#fff6e0;border-color:#f2dda4;color:#8a6100}
+.chip.v{background:#e6f7f4;border-color:#a9e5dc;color:#0f6b60}
+.chip.r{background:#fdeaec;border-color:#f5c2c7;color:#a01722}
+
+/* tabla */
+.tb{width:100%;border-collapse:collapse;font-size:15.5px;margin-top:10px}
+.tb th{background:var(--azul);color:#fff;padding:11px 14px;text-align:left;font-size:13px;
+  letter-spacing:1.2px;text-transform:uppercase}
+.tb th:first-child{border-radius:12px 0 0 0} .tb th:last-child{border-radius:0 12px 0 0}
+.tb td{padding:11px 14px;border-bottom:1px solid #e2e8f0;color:#334155}
+.tb tr:nth-child(even) td{background:var(--claro)}
+.tb .f{font-family:'Consolas',monospace;font-weight:800;color:var(--azul3);font-size:16px}
+
+/* alertas */
+.alert{border-radius:16px;padding:16px 20px;font-size:15.5px;display:flex;gap:13px;align-items:flex-start}
+.alert .i{font-size:24px;line-height:1;flex:0 0 auto}
+.a-err{background:#fdeaec;border-left:5px solid var(--rojo);color:#7a1220}
+.a-ok{background:#e6f7f4;border-left:5px solid var(--verde);color:#0b5a51}
+.a-info{background:#eef4fb;border-left:5px solid var(--azul3);color:#153e6e}
+.a-warn{background:#fff6e0;border-left:5px solid var(--oro);color:#6b4d00}
+
+/* cita */
+.cita{background:linear-gradient(135deg,#fff6e0,#fffdf6);border-left:6px solid var(--oro);
+  border-radius:0 18px 18px 0;padding:18px 22px;font-size:17.5px;font-style:italic;color:#5c4300;line-height:1.55}
+
+/* quiz */
+.opt{background:#ffffff14;border:1.5px solid #ffffff30;border-radius:13px;padding:12px 16px;margin-top:9px;
+  cursor:pointer;transition:.2s;font-size:15.5px;display:flex;align-items:center;gap:11px;color:#fff}
+.opt:hover{background:#ffffff26;transform:translateX(5px)}
+.opt .k{width:28px;height:28px;flex:0 0 28px;border-radius:8px;background:#ffffff2b;display:grid;place-items:center;font-weight:800;font-size:14px}
+.opt.ok{background:#1b998b;border-color:#06d6a0}
+.opt.no{background:#e6394655;border-color:#e63946}
+.fb{margin-top:12px;font-size:14.5px;background:#ffffff18;border-radius:11px;padding:12px 14px;display:none;color:#e8f1fb}
+.fb.show{display:block;animation:entra .4s both}
+
+/* nav */
+#nav{position:fixed;left:0;right:0;bottom:0;height:62px;z-index:50;background:rgba(6,20,38,.8);
+  backdrop-filter:blur(14px);border-top:1px solid #ffffff1f;display:flex;align-items:center;
+  justify-content:space-between;padding:0 22px;color:#fff}
+#nav .btn{background:#ffffff1a;border:1px solid #ffffff33;color:#fff;border-radius:11px;padding:9px 16px;
+  font-size:14px;font-weight:700;cursor:pointer;transition:.2s;font-family:inherit}
+#nav .btn:hover{background:var(--oro);color:#2b1a00;border-color:var(--oro)}
+#nav .btn:disabled{opacity:.32;cursor:not-allowed}
+#dots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:52vw}
+#dots i{width:8px;height:8px;border-radius:50%;background:#ffffff40;cursor:pointer;transition:.25s}
+#dots i.on{background:var(--oro);width:24px;border-radius:6px}
+#dots i.t1{background:#ffd16655} #dots i.t2{background:#1b998b66}
+#cont{font-size:13.5px;color:#b9cde4;font-weight:700;letter-spacing:1px;min-width:66px;text-align:right}
+#prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--oro),var(--verde));z-index:60;transition:width .35s;width:0}
+.marca{position:fixed;top:13px;right:20px;z-index:55;color:#ffffff8c;font-size:11.5px;letter-spacing:2px;font-weight:700}
+
+/* separador de tema */
+.tema{min-height:calc(100vh - 150px);display:grid;place-items:center;color:#fff;text-align:center}
+.tema .big{font-size:clamp(70px,13vw,160px);font-weight:800;line-height:.9;
+  background:linear-gradient(180deg,#ffffff40,#ffffff08);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tema h1{color:#fff;margin-top:-18px}
+
+@media(max-width:980px){
+  .g2,.g3,.g4,.g23,.g32,.portada{grid-template-columns:1fr}
+  .slide{padding:22px 14px 80px} .card{padding:22px 18px} #dots{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div class="marca">UNIDAD 1 · GEOMETRÍA Y BASES DE ÁLGEBRA</div>
+
+<div id="deck">
+
+<!-- ============ 1 · PORTADA ============ -->
+<section class="slide on">
+  <div class="portada">
+    <div>
+      <div class="badge">📐 UNIDAD 1 · 48 HORAS · RPA R1</div>
+      <h1>Geometría y<span>bases de álgebra</span></h1>
+      <p class="lead">Las herramientas con las que se <b style="color:#fff">mide, compara, modela y predice</b>. Cinco temas para construir el lenguaje del razonamiento cuantitativo.</p>
+      <div class="chips" style="margin-top:22px">
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">🔬 Notación científica</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">➕ Operaciones</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">½ Fracciones y %</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">📈 Función lineal</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">📐 Área y volumen</span>
+      </div>
+      <p style="color:#9fb8d4;margin-top:26px;font-size:14px">▸ Use ← → para navegar · esta presentación tiene <b style="color:var(--oro2)">7 simuladores interactivos</b>: muévalos y experimente</p>
+    </div>
+    <div style="display:grid;place-items:center">
+      <svg class="flot" width="330" height="330" viewBox="0 0 200 200">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="#e0a80d"/></linearGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b998b"/><stop offset="1" stop-color="#06d6a0"/></linearGradient>
+        </defs>
+        <circle cx="100" cy="100" r="88" fill="none" stroke="#ffffff1f" stroke-width="2"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#ffffff14" stroke-width="2"/>
+        <rect x="34" y="96" width="60" height="60" rx="6" fill="url(#g1)" opacity=".92" transform="rotate(-8 64 126)"/>
+        <polygon points="130,42 168,108 92,108" fill="url(#g2)" opacity=".92"/>
+        <circle cx="128" cy="146" r="30" fill="#7b2cbf" opacity=".85"/>
+        <text x="100" y="34" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="Segoe UI">y = mx + b</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 · RUTA ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🗺️</div><div><span class="sub">Ruta de la unidad</span><h2>Cinco temas, 48 horas</h2></div></div>
+    <p class="lead" style="margin-bottom:20px">Cada tema construye sobre el anterior. Note que el orden <span class="hl">no es casual</span>: primero aprendemos a escribir números grandes, luego a operarlos, después a compararlos, luego a modelarlos y finalmente a aplicarlos al espacio.</p>
+    <div class="g3" style="grid-template-columns:repeat(5,1fr);gap:14px">
+      <div class="box" onclick="go(3)" style="cursor:pointer"><div class="n">1</div><h4>Notación científica</h4><p style="font-size:13.5px;margin-top:5px">Escribir lo muy grande y lo muy pequeño</p><div class="chip o" style="margin-top:9px;display:inline-block">8 h</div></div>
+      <div class="box verde" onclick="go(6)" style="cursor:pointer"><div class="n">2</div><h4>Operaciones aritméticas</h4><p style="font-size:13.5px;margin-top:5px">Propiedades y orden correcto</p><div class="chip v" style="margin-top:9px;display:inline-block">10 h</div></div>
+      <div class="box oro" onclick="go(9)" style="cursor:pointer"><div class="n">3</div><h4>Fracciones y porcentajes</h4><p style="font-size:13.5px;margin-top:5px">Comparar y expresar partes</p><div class="chip o" style="margin-top:9px;display:inline-block">12 h</div></div>
+      <div class="box violeta" onclick="go(13)" style="cursor:pointer"><div class="n">4</div><h4>Función lineal</h4><p style="font-size:13.5px;margin-top:5px">Modelar y predecir</p><div class="chip" style="margin-top:9px;display:inline-block">8 h</div></div>
+      <div class="box rojo" onclick="go(16)" style="cursor:pointer"><div class="n">5</div><h4>Figuras geométricas</h4><p style="font-size:13.5px;margin-top:5px">Perímetro, área y volumen</p><div class="chip r" style="margin-top:9px;display:inline-block">10 h</div></div>
+    </div>
+    <h3 style="margin-top:26px">⏱️ Peso de cada tema dentro de la unidad</h3>
+    <svg viewBox="0 0 900 90" style="width:100%;margin-top:10px">
+      <g font-family="Segoe UI" font-size="13" font-weight="700">
+        <rect x="0"   y="20" width="150" height="42" rx="9" fill="#1d4e89"/><text x="75"  y="46" fill="#fff" text-anchor="middle">8 h · Notación</text>
+        <rect x="156" y="20" width="187" height="42" rx="9" fill="#1b998b"/><text x="249" y="46" fill="#fff" text-anchor="middle">10 h · Operaciones</text>
+        <rect x="349" y="20" width="225" height="42" rx="9" fill="#e0a80d"/><text x="461" y="46" fill="#2b1a00" text-anchor="middle">12 h · Fracciones y %</text>
+        <rect x="580" y="20" width="150" height="42" rx="9" fill="#7b2cbf"/><text x="655" y="46" fill="#fff" text-anchor="middle">8 h · Función</text>
+        <rect x="736" y="20" width="164" height="42" rx="9" fill="#e63946"/><text x="818" y="46" fill="#fff" text-anchor="middle">10 h · Figuras</text>
+        <text x="0" y="82" fill="#64748b" font-size="12">0 h</text><text x="880" y="82" fill="#64748b" font-size="12">48 h</text>
+      </g>
+    </svg>
+    <div class="g4" style="margin-top:22px">
+      <div class="kpi"><div class="num" data-c="48">0</div><div class="lbl">Horas totales</div></div>
+      <div class="kpi" style="background:linear-gradient(135deg,var(--verde),#0f766e)"><div class="num" data-c="16">0</div><div class="lbl">Trabajo directo</div></div>
+      <div class="kpi" style="background:linear-gradient(135deg,var(--violeta),#5a189a)"><div class="num" data-c="32">0</div><div class="lbl">Trabajo autónomo</div></div>
+      <div class="kpi" style="background:linear-gradient(135deg,#0f172a,#1e293b)"><div class="num" data-c="5">0</div><div class="lbl">Subtemas</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 · RPA E INDICADORES ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🎯</div><div><span class="sub">Resultado de aprendizaje</span><h2>¿Qué se espera al terminar?</h2></div></div>
+    <div class="alert a-info" style="margin-bottom:22px">
+      <span class="i">R1</span>
+      <div><b>Analiza problemas geométricos y algebraicos</b> en contextos cotidianos o académicos para desarrollar habilidades analíticas y de razonamiento lógico que permitan <b>interpretar y modelar situaciones reales</b>.</div>
+    </div>
+    <h3 style="margin-bottom:12px">📊 Los tres niveles de logro</h3>
+    <div class="g3">
+      <div style="border-radius:18px;padding:20px;background:linear-gradient(135deg,#64748b,#94a3b8);color:#fff">
+        <div style="font-size:20px">★☆☆</div><h4 style="color:#fff;letter-spacing:1px;margin:6px 0">BAJO · Identificar</h4>
+        <p style="color:#ffffffe6;font-size:14.5px">Identifica propiedades geométricas y algebraicas básicas en figuras y expresiones presentadas en contextos cotidianos, para desarrollar una comprensión inicial.</p>
+      </div>
+      <div style="border-radius:18px;padding:20px;background:linear-gradient(135deg,var(--azul3),#4a90d9);color:#fff">
+        <div style="font-size:20px">★★☆</div><h4 style="color:#fff;letter-spacing:1px;margin:6px 0">INTERMEDIO · Aplicar</h4>
+        <p style="color:#ffffffe6;font-size:14.5px">Aplica principios de geometría y álgebra para resolver problemas que involucren mediciones, proporciones o ecuaciones en escenarios académicos o de la vida diaria.</p>
+      </div>
+      <div style="border-radius:18px;padding:20px;background:linear-gradient(135deg,var(--verde),#06d6a0);color:#fff">
+        <div style="font-size:20px">★★★</div><h4 style="color:#fff;letter-spacing:1px;margin:6px 0">SUPERIOR · Decidir</h4>
+        <p style="color:#ffffffe6;font-size:14.5px">Analiza problemas que <b>combinan</b> conceptos geométricos y algebraicos para tomar decisiones fundamentadas en datos cuantitativos.</p>
+      </div>
+    </div>
+    <div class="g2" style="margin-top:24px">
+      <div class="box"><div class="n">🧠</div><h3>Estrategia de enseñanza</h3><p>Aprendizaje Basado en Problemas y Aprendizaje Basado en Proyectos. Primero el problema, después la fórmula.</p></div>
+      <div class="box oro"><div class="n">✅</div><h3>Evaluación</h3><p>Proyectos individuales y grupales · evaluación basada en casos · autoevaluación · simulaciones · habilidades prácticas.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 · SEPARADOR TEMA 1 ============ -->
+<section class="slide">
+  <div class="tema">
+    <div>
+      <div class="big">01</div>
+      <h1>Notación científica</h1>
+      <p class="lead" style="color:#dbe7f5;margin-top:14px">Cómo escribir lo inmensamente grande y lo diminutamente pequeño sin perderse entre ceros</p>
+      <div class="chips" style="justify-content:center;margin-top:18px">
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">8 horas</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">3 h directas · 5 h autónomas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5 · NOTACIÓN: CONCEPTO ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🔬</div><div><span class="sub">Tema 1 · Concepto</span><h2>El problema de los ceros</h2></div></div>
+    <div class="g23">
+      <div>
+        <p class="lead">El presupuesto anual de una institución puede ser <b>$1.850.000.000.000</b>. ¿Cuántos ceros contó? ¿Está seguro? Ese es exactamente el problema que resuelve la notación científica.</p>
+        <div class="form" style="margin:20px 0">
+          N = m × 10<sup>e</sup>
+          <small>Con 1 ≤ |m| &lt; 10</small>
+        </div>
+        <div class="g2">
+          <div class="box"><div class="n">m</div><h4>Mantisa (o coeficiente)</h4><p>Un número entre 1 y 10. Guarda las <b>cifras significativas</b>: lo que realmente importa del dato.</p></div>
+          <div class="box oro"><div class="n">e</div><h4>Exponente</h4><p>Indica <b>la magnitud</b>: cuántos lugares se mueve la coma. Positivo si el número es grande, negativo si es pequeño.</p></div>
+        </div>
+        <div class="alert a-ok" style="margin-top:18px">
+          <span class="i">💡</span>
+          <div><b>La regla del movimiento.</b> Mueva la coma hasta dejar una sola cifra distinta de cero a su izquierda. El número de saltos es el exponente: hacia la <b>izquierda</b> el exponente es <b>positivo</b>; hacia la <b>derecha</b>, <b>negativo</b>.</div>
+        </div>
+      </div>
+      <div class="foto" style="min-height:380px">
+        <div class="emo">🔢</div>
+        <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=900&q=80" alt="Fórmulas" onerror="this.classList.add('fail')">
+        <div class="cap">La notación científica es el idioma universal de la ciencia y la ingeniería</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6 · SIMULADOR NOTACIÓN ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🎛️</div><div><span class="sub">Tema 1 · Simulador</span><h2>Conversor de notación científica</h2></div></div>
+    <div class="g2">
+      <div class="sim">
+        <h3>🔄 <span>Escriba un número y obsérvelo transformarse</span></h3>
+        <span class="tag">Interactivo</span>
+        <div class="ctrl" style="margin-top:16px">
+          <label>Número en notación decimal</label>
+          <input type="text" id="nEnt" value="1850000000000" oninput="convNot()" placeholder="Ej: 45000 o 0.00072">
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+          <button class="btn3" onclick="setNot('1850000000000')">Presupuesto</button>
+          <button class="btn3" onclick="setNot('299792458')">Luz (m/s)</button>
+          <button class="btn3" onclick="setNot('52000000')">Población</button>
+          <button class="btn3" onclick="setNot('0.000072')">Micro</button>
+        </div>
+        <div class="out"><div class="k">Notación científica</div><div class="v" id="nSal">1,85 × 10<small>12</small></div></div>
+        <div class="out"><div class="k">Cómo se leyó</div><div class="v" id="nExp" style="font-size:16px;font-weight:600;color:#dbe7f5">—</div></div>
+      </div>
+      <div class="sim" style="background:linear-gradient(150deg,#5a189a,#7b2cbf)">
+        <h3>📏 <span>Escala de magnitudes</span></h3>
+        <span class="tag">Interactivo</span>
+        <p style="color:#e9dcf7;font-size:15px;margin-top:12px">Deslice para recorrer las potencias de diez y ver a qué corresponde cada magnitud en el mundo real.</p>
+        <div class="ctrl" style="margin-top:18px">
+          <label>Exponente <b id="eVal">10<sup>6</sup></b></label>
+          <input type="range" id="eSlider" min="-9" max="12" value="6" step="1" oninput="escala()">
+        </div>
+        <div class="out"><div class="k">Valor</div><div class="v" id="eNum">1 000 000</div></div>
+        <div class="out"><div class="k">Equivale aproximadamente a</div><div class="v" id="eRef" style="font-size:17px;font-weight:600;color:#f3e8ff">—</div></div>
+      </div>
+    </div>
+    <div class="alert a-warn" style="margin-top:20px">
+      <span class="i">⚠️</span>
+      <div><b>Error frecuente:</b> escribir <code>18,5 × 10¹¹</code> y creer que está en notación científica. No lo está: la mantisa debe ser <b>mayor o igual a 1 y menor que 10</b>. La forma correcta es <code>1,85 × 10¹²</code>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7 · SEPARADOR TEMA 2 ============ -->
+<section class="slide">
+  <div class="tema">
+    <div>
+      <div class="big">02</div>
+      <h1>Operaciones aritméticas</h1>
+      <p class="lead" style="color:#dbe7f5;margin-top:14px">Las propiedades que hacen posible calcular, y el orden que decide si el resultado es correcto</p>
+      <div class="chips" style="justify-content:center;margin-top:18px">
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">10 horas</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">3 h directas · 7 h autónomas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8 · PROPIEDADES ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">➕</div><div><span class="sub">Tema 2 · Propiedades</span><h2>Las cuatro propiedades que usamos sin darnos cuenta</h2></div></div>
+    <div class="g4">
+      <div class="box"><div class="n">🔁</div><h4>Conmutativa</h4>
+        <div class="formd" style="margin:10px 0;font-size:17px">a + b = b + a</div>
+        <p>El orden de los sumandos (o factores) no altera el resultado. <b>No aplica</b> a la resta ni a la división.</p>
+        <div class="chip v">4 + 7 = 7 + 4</div>
+      </div>
+      <div class="box verde"><div class="n">🔗</div><h4>Asociativa</h4>
+        <div class="formd" style="margin:10px 0;font-size:16px">(a+b)+c = a+(b+c)</div>
+        <p>Se puede agrupar de distintas formas. Permite calcular por partes lo que es difícil de una sola vez.</p>
+        <div class="chip v">(2+8)+5 = 2+(8+5)</div>
+      </div>
+      <div class="box oro"><div class="n">📤</div><h4>Distributiva</h4>
+        <div class="formd" style="margin:10px 0;font-size:16px">a(b+c) = ab + ac</div>
+        <p>Conecta multiplicación con suma. Es la base del álgebra: factorizar y expandir expresiones.</p>
+        <div class="chip o">3(10+4) = 30+12</div>
+      </div>
+      <div class="box violeta"><div class="n">0️⃣</div><h4>Elemento neutro</h4>
+        <div class="formd" style="margin:10px 0;font-size:17px">a + 0 = a · a × 1 = a</div>
+        <p>El 0 en la suma y el 1 en la multiplicación no cambian nada. Parecen triviales, pero sostienen todo el cálculo.</p>
+        <div class="chip">25 × 1 = 25</div>
+      </div>
+    </div>
+    <div class="g2" style="margin-top:24px">
+      <div class="alert a-ok">
+        <span class="i">🧮</span>
+        <div><b>Para qué sirven en la práctica.</b> La distributiva permite calcular mentalmente: <b>15 × 102</b> es difícil, pero <b>15 × (100 + 2) = 1.500 + 30 = 1.530</b> se resuelve en segundos. La asociativa permite reagrupar cifras de un presupuesto para verificar totales por bloques.</div>
+      </div>
+      <div class="alert a-err">
+        <span class="i">🚫</span>
+        <div><b>Cuidado.</b> La resta y la división <b>no</b> son conmutativas ni asociativas: <code>10 − 4 ≠ 4 − 10</code> y <code>(20 ÷ 4) ÷ 2 ≠ 20 ÷ (4 ÷ 2)</code>. Confundir esto genera errores graves en liquidaciones y reportes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9 · SIMULADOR JERARQUÍA ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🪜</div><div><span class="sub">Tema 2 · Simulador</span><h2>El orden de las operaciones, paso a paso</h2></div></div>
+    <div class="g23">
+      <div class="sim">
+        <h3>▶️ <span>Resolvamos juntos</span></h3>
+        <span class="tag">Interactivo</span>
+        <div class="formd" style="margin-top:14px;font-size:26px" id="expOrig">8 + 3 × (10 − 6)² ÷ 4</div>
+        <div id="pasos"></div>
+        <div style="display:flex;gap:10px;margin-top:16px">
+          <button class="btn2" id="btnPaso" onclick="sigPaso()">Siguiente paso ▶</button>
+          <button class="btn3" onclick="resetPasos()">↺ Reiniciar</button>
+        </div>
+      </div>
+      <div>
+        <h3>📋 La jerarquía</h3>
+        <table class="tb">
+          <tr><th>Orden</th><th>Operación</th></tr>
+          <tr><td><b>1º</b></td><td>Paréntesis ( ) — de adentro hacia afuera</td></tr>
+          <tr><td><b>2º</b></td><td>Potencias y raíces</td></tr>
+          <tr><td><b>3º</b></td><td>Multiplicación y división — <i>de izquierda a derecha</i></td></tr>
+          <tr><td><b>4º</b></td><td>Suma y resta — <i>de izquierda a derecha</i></td></tr>
+        </table>
+        <div class="alert a-err" style="margin-top:16px">
+          <span class="i">💥</span>
+          <div><b>El error que cambia el resultado.</b><br>
+          Calculando <code>8 + 3 × 4</code> de izquierda a derecha se obtiene <b>44</b>. Respetando la jerarquía se obtiene <b>20</b>. En una liquidación presupuestal, esa diferencia es un hallazgo de auditoría.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 · SEPARADOR TEMA 3 ============ -->
+<section class="slide">
+  <div class="tema">
+    <div>
+      <div class="big">03</div>
+      <h1>Fracciones, razones,<br>decimales y porcentajes</h1>
+      <p class="lead" style="color:#dbe7f5;margin-top:14px">Cuatro maneras de decir exactamente lo mismo — y el tema más extenso de la unidad</p>
+      <div class="chips" style="justify-content:center;margin-top:18px">
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">12 horas</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">4 h directas · 8 h autónomas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11 · SIMULADOR CONVERSOR ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🍕</div><div><span class="sub">Tema 3 · Simulador</span><h2>Las cuatro caras del mismo número</h2></div></div>
+    <div class="g2">
+      <div class="sim">
+        <h3>⚖️ <span>Mueva las partes y observe</span></h3>
+        <span class="tag">Interactivo</span>
+        <div class="ctrl" style="margin-top:16px">
+          <label>Numerador (partes tomadas) <b id="numV">3</b></label>
+          <input type="range" id="numS" min="0" max="24" value="3" oninput="conv()">
+        </div>
+        <div class="ctrl">
+          <label>Denominador (partes totales) <b id="denV">4</b></label>
+          <input type="range" id="denS" min="1" max="24" value="4" oninput="conv()">
+        </div>
+        <div class="g2" style="gap:12px;margin-top:6px">
+          <div class="out"><div class="k">Fracción</div><div class="v" id="oFrac">3/4</div></div>
+          <div class="out"><div class="k">Decimal</div><div class="v" id="oDec">0,75</div></div>
+          <div class="out"><div class="k">Porcentaje</div><div class="v" id="oPct">75 %</div></div>
+          <div class="out"><div class="k">Razón</div><div class="v" id="oRaz">3 : 1</div></div>
+        </div>
+      </div>
+      <div>
+        <div style="background:var(--claro);border-radius:20px;padding:20px;text-align:center">
+          <h3>Representación visual</h3>
+          <svg id="pizza" viewBox="0 0 220 220" style="width:230px;margin:8px auto 0;display:block"></svg>
+          <div style="margin-top:12px">
+            <div style="height:34px;background:#e2e8f0;border-radius:99px;overflow:hidden">
+              <div id="barra" style="height:100%;width:75%;background:linear-gradient(90deg,var(--azul3),var(--verde));
+                   border-radius:99px;transition:width .3s;display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px">75 %</div>
+            </div>
+          </div>
+        </div>
+        <div class="alert a-info" style="margin-top:16px">
+          <span class="i">🔑</span>
+          <div><b>La idea central:</b> fracción, decimal, porcentaje y razón <b>no son cuatro temas distintos</b>. Son cuatro formas de escribir la misma relación entre una parte y un todo. Dominar el paso entre ellas es el 80 % del tema.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12 · SIMULADOR VARIACIÓN % ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">📉</div><div><span class="sub">Tema 3 · Simulador</span><h2>Variación porcentual: el cálculo más útil del curso</h2></div></div>
+    <div class="g2">
+      <div class="sim">
+        <h3>🧮 <span>Calculadora de variación</span></h3>
+        <span class="tag">Interactivo</span>
+        <div class="g2" style="gap:12px;margin-top:14px">
+          <div class="ctrl"><label>Valor inicial</label><input type="number" id="vIni" value="40" oninput="varPct()"></div>
+          <div class="ctrl"><label>Valor final</label><input type="number" id="vFin" value="50" oninput="varPct()"></div>
+        </div>
+        <div class="out"><div class="k">Variación absoluta</div><div class="v" id="rAbs">+10 casos</div></div>
+        <div class="out"><div class="k">Variación porcentual</div><div class="v" id="rPct" style="font-size:36px">+25 %</div></div>
+        <div class="out"><div class="k">Interpretación</div><div class="v" id="rInt" style="font-size:16px;font-weight:600;color:#dbe7f5">—</div></div>
+      </div>
+      <div>
+        <div class="form">
+          Variación % = <span style="display:inline-block;text-align:center;vertical-align:middle">
+          <span style="border-bottom:3px solid #6b4d00;padding:0 8px;display:block">final − inicial</span>
+          <span style="display:block;padding-top:3px">inicial</span></span> × 100
+        </div>
+        <div class="alert a-err" style="margin-top:18px">
+          <span class="i">🚨</span>
+          <div><b>El error más costoso al leer estadísticas.</b> Decir que pasar de 40 a 50 hurtos es "un aumento del 10 %" confunde la <b>diferencia absoluta</b> (10 casos) con la <b>variación relativa</b> (25 %). Son cosas distintas y comunicarlas mal distorsiona la percepción de seguridad.</div>
+        </div>
+        <div class="alert a-warn" style="margin-top:14px">
+          <span class="i">🔄</span>
+          <div><b>Ojo con la asimetría.</b> Si algo sube 50 % y luego baja 50 %, <b>no</b> vuelve al punto de partida: 100 → 150 → 75. Los porcentajes se calculan siempre sobre la base del momento.</div>
+        </div>
+        <div class="foto" style="height:150px;margin-top:14px">
+          <div class="emo">📊</div>
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80" alt="Indicadores" onerror="this.classList.add('fail')">
+          <div class="cap">Todo indicador de gestión es, en el fondo, una variación porcentual</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 13 · REGLA DE TRES ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">⚖️</div><div><span class="sub">Tema 3 · Simulador</span><h2>Razones y proporciones: la regla de tres</h2></div></div>
+    <div class="g23">
+      <div class="sim">
+        <h3>🔢 <span>Proporción directa</span></h3>
+        <span class="tag">Interactivo</span>
+        <p style="color:#cfe0f2;font-size:15px;margin-top:12px">Si <b style="color:#fff"><span id="p1">8</span></b> patrullas cubren <b style="color:#fff"><span id="p2">24</span></b> cuadrantes, ¿cuántos cubren <b style="color:var(--oro2)"><span id="p3">14</span></b> patrullas?</p>
+        <div class="g3" style="gap:10px;margin-top:14px">
+          <div class="ctrl"><label>A</label><input type="number" id="pA" value="8" oninput="regla3()"></div>
+          <div class="ctrl"><label>B</label><input type="number" id="pB" value="24" oninput="regla3()"></div>
+          <div class="ctrl"><label>C</label><input type="number" id="pC" value="14" oninput="regla3()"></div>
+        </div>
+        <div class="formd" style="margin-top:16px;font-size:19px" id="propView">8 / 24 = 14 / X</div>
+        <div class="out"><div class="k">Resultado (X)</div><div class="v" id="pRes" style="font-size:34px">42</div></div>
+        <div class="out"><div class="k">Constante de proporcionalidad</div><div class="v" id="pK" style="font-size:19px;color:var(--oro2)">3 cuadrantes por patrulla</div></div>
+      </div>
+      <div>
+        <h3>🧭 Cómo reconocer el tipo</h3>
+        <div class="box" style="margin-bottom:12px"><div class="n">↗️</div><h4>Proporción directa</h4><p>Si una magnitud aumenta, la otra <b>también</b>. Más patrullas → más cobertura. Se resuelve multiplicando en cruz.</p></div>
+        <div class="box rojo"><div class="n">↘️</div><h4>Proporción inversa</h4><p>Si una aumenta, la otra <b>disminuye</b>. Más patrullas → menos tiempo de respuesta. Se resuelve multiplicando en línea.</p></div>
+        <div class="alert a-info" style="margin-top:16px">
+          <span class="i">🤔</span>
+          <div><b>Antes de calcular, pregunte:</b> "si esto sube, ¿lo otro sube o baja?". Elegir mal el tipo de proporción es el error más común, y ninguna calculadora lo detecta por usted.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 14 · SEPARADOR TEMA 4 ============ -->
+<section class="slide">
+  <div class="tema">
+    <div>
+      <div class="big">04</div>
+      <h1>Función lineal</h1>
+      <p class="lead" style="color:#dbe7f5;margin-top:14px">El primer modelo con el que se predice: si esto crece así, ¿qué pasará mañana?</p>
+      <div class="chips" style="justify-content:center;margin-top:18px">
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">8 horas</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">3 h directas · 5 h autónomas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 15 · SIMULADOR GRAFICADOR ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">📈</div><div><span class="sub">Tema 4 · Simulador</span><h2>Anatomía de y = mx + b</h2></div></div>
+    <div class="g32">
+      <div class="sim">
+        <h3>🎚️ <span>Mueva m y b</span></h3>
+        <span class="tag">Interactivo</span>
+        <div class="ctrl" style="margin-top:16px">
+          <label>Pendiente <b id="mV">m = 2</b></label>
+          <input type="range" id="mS" min="-5" max="5" value="2" step="0.5" oninput="graf()">
+        </div>
+        <div class="ctrl">
+          <label>Intercepto <b id="bV">b = 1</b></label>
+          <input type="range" id="bS" min="-8" max="8" value="1" step="1" oninput="graf()">
+        </div>
+        <div class="formd" style="margin-top:16px;font-size:24px" id="ecu">y = 2x + 1</div>
+        <div class="out"><div class="k">La pendiente dice</div><div class="v" id="mTxt" style="font-size:16px;font-weight:600;color:#dbe7f5">—</div></div>
+        <div class="out"><div class="k">El intercepto dice</div><div class="v" id="bTxt" style="font-size:16px;font-weight:600;color:#dbe7f5">—</div></div>
+      </div>
+      <div>
+        <svg id="plano" viewBox="0 0 460 340" style="width:100%;background:var(--claro);border-radius:18px"></svg>
+        <div class="g3" style="margin-top:14px">
+          <div class="box" style="padding:14px"><h4>📈 m &gt; 0</h4><p style="font-size:13.5px">Creciente: sube de izquierda a derecha</p></div>
+          <div class="box rojo" style="padding:14px"><h4>📉 m &lt; 0</h4><p style="font-size:13.5px">Decreciente: baja de izquierda a derecha</p></div>
+          <div class="box oro" style="padding:14px"><h4>➖ m = 0</h4><p style="font-size:13.5px">Constante: recta horizontal</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 16 · APLICACIÓN FUNCIÓN ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🔮</div><div><span class="sub">Tema 4 · Aplicación</span><h2>Modelar para anticipar</h2></div></div>
+    <div class="g23">
+      <div>
+        <div class="alert a-info" style="margin-bottom:18px">
+          <span class="i">📋</span>
+          <div><b>Caso.</b> Un puesto de mando gasta <b>$800.000</b> fijos al mes en mantenimiento, más <b>$45.000</b> por cada patrulla asignada. ¿Cuál es el modelo del costo? ¿Cuánto costará con 12 patrullas?</div>
+        </div>
+        <div class="ruta-pasos">
+          <div class="box" style="margin-bottom:12px"><div class="n">1</div><h4>Identificar las partes</h4>
+            <p>Lo que <b>no cambia</b> es el intercepto: <code>b = 800.000</code>. Lo que cambia <b>por unidad</b> es la pendiente: <code>m = 45.000</code>.</p></div>
+          <div class="box verde" style="margin-bottom:12px"><div class="n">2</div><h4>Escribir el modelo</h4>
+            <div class="formd" style="margin-top:8px">C(x) = 45.000x + 800.000</div></div>
+          <div class="box oro"><div class="n">3</div><h4>Usar el modelo</h4>
+            <p>Con 12 patrullas: <code>C(12) = 45.000(12) + 800.000 = 540.000 + 800.000 =</code> <b style="color:var(--azul);font-size:19px">$1.340.000</b></p></div>
+        </div>
+      </div>
+      <div>
+        <div class="sim" style="background:linear-gradient(150deg,#0f766e,#1b998b)">
+          <h3>🧪 <span>Pruebe el modelo</span></h3>
+          <span class="tag">Interactivo</span>
+          <div class="ctrl" style="margin-top:14px">
+            <label>Patrullas asignadas <b id="patV">12</b></label>
+            <input type="range" id="patS" min="0" max="40" value="12" oninput="costo()">
+          </div>
+          <div class="out"><div class="k">Costo mensual estimado</div><div class="v" id="cRes" style="font-size:30px">$1.340.000</div></div>
+          <div class="out"><div class="k">Desglose</div><div class="v" id="cDes" style="font-size:15px;font-weight:600;color:#d7f5f0">—</div></div>
+        </div>
+        <div class="cita" style="margin-top:16px">Un modelo lineal no adivina el futuro: describe una tendencia bajo supuestos. Si los supuestos cambian, el modelo deja de servir.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 17 · SEPARADOR TEMA 5 ============ -->
+<section class="slide">
+  <div class="tema">
+    <div>
+      <div class="big">05</div>
+      <h1>Figuras geométricas</h1>
+      <p class="lead" style="color:#dbe7f5;margin-top:14px">Perímetro, área y volumen: medir el espacio donde ocurren los hechos</p>
+      <div class="chips" style="justify-content:center;margin-top:18px">
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">10 horas</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">3 h directas · 7 h autónomas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 18 · 1D 2D 3D ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">📐</div><div><span class="sub">Tema 5 · Concepto</span><h2>Tres preguntas distintas, tres unidades distintas</h2></div></div>
+    <p class="lead" style="margin-bottom:20px">La confusión entre perímetro, área y volumen es el error clásico. La clave está en <span class="hl">las unidades</span>: ellas revelan qué se está midiendo realmente.</p>
+    <div class="g3">
+      <div class="box" style="text-align:center">
+        <svg viewBox="0 0 160 110" style="width:100%;max-width:190px;margin:0 auto">
+          <rect x="25" y="25" width="110" height="62" fill="none" stroke="#1d4e89" stroke-width="6" stroke-linejoin="round"/>
+          <text x="80" y="16" text-anchor="middle" font-size="13" fill="#1d4e89" font-weight="700" font-family="Segoe UI">contorno</text>
+        </svg>
+        <h3 style="margin-top:8px">Perímetro · 1D</h3>
+        <p><b>¿Cuánto mide el borde?</b> Es la suma de todos los lados.</p>
+        <div class="chip" style="margin-top:8px">metros (m)</div>
+        <p style="font-size:13.5px;margin-top:8px;color:#64748b">Ej.: cuánta cinta se necesita para acordonar un sitio</p>
+      </div>
+      <div class="box verde" style="text-align:center">
+        <svg viewBox="0 0 160 110" style="width:100%;max-width:190px;margin:0 auto">
+          <rect x="25" y="25" width="110" height="62" fill="#1b998b" opacity=".35" stroke="#1b998b" stroke-width="4"/>
+          <text x="80" y="16" text-anchor="middle" font-size="13" fill="#0f766e" font-weight="700" font-family="Segoe UI">superficie</text>
+        </svg>
+        <h3 style="margin-top:8px">Área · 2D</h3>
+        <p><b>¿Cuánta superficie cubre?</b> Es el espacio plano encerrado.</p>
+        <div class="chip v" style="margin-top:8px">metros cuadrados (m²)</div>
+        <p style="font-size:13.5px;margin-top:8px;color:#64748b">Ej.: cuánta superficie debe rastrear un equipo</p>
+      </div>
+      <div class="box violeta" style="text-align:center">
+        <svg viewBox="0 0 160 110" style="width:100%;max-width:190px;margin:0 auto">
+          <polygon points="25,40 100,40 100,95 25,95" fill="#7b2cbf" opacity=".45" stroke="#7b2cbf" stroke-width="3"/>
+          <polygon points="25,40 50,20 125,20 100,40" fill="#7b2cbf" opacity=".75" stroke="#7b2cbf" stroke-width="3"/>
+          <polygon points="100,40 125,20 125,75 100,95" fill="#5a189a" opacity=".6" stroke="#7b2cbf" stroke-width="3"/>
+          <text x="80" y="14" text-anchor="middle" font-size="13" fill="#5a189a" font-weight="700" font-family="Segoe UI">capacidad</text>
+        </svg>
+        <h3 style="margin-top:8px">Volumen · 3D</h3>
+        <p><b>¿Cuánto cabe adentro?</b> Es el espacio tridimensional ocupado.</p>
+        <div class="chip" style="margin-top:8px;background:#f3e8ff;border-color:#d8b4fe;color:#5a189a">metros cúbicos (m³)</div>
+        <p style="font-size:13.5px;margin-top:8px;color:#64748b">Ej.: capacidad de una bodega de evidencias</p>
+      </div>
+    </div>
+    <div class="alert a-ok" style="margin-top:22px">
+      <span class="i">🔍</span>
+      <div><b>Truco infalible:</b> mire el exponente de la unidad. Sin exponente (m) es <b>longitud</b>; elevado al cuadrado (m²) es <b>superficie</b>; elevado al cubo (m³) es <b>capacidad</b>. Si su resultado tiene las unidades equivocadas, el procedimiento estuvo mal.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 19 · SIMULADOR GEOMETRÍA ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🧰</div><div><span class="sub">Tema 5 · Simulador</span><h2>Laboratorio de figuras</h2></div></div>
+    <div class="g32">
+      <div class="sim" style="background:linear-gradient(150deg,#7a1220,#e63946)">
+        <h3>📏 <span>Elija una figura y dimensione</span></h3>
+        <span class="tag">Interactivo</span>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:14px">
+          <button class="btn3 act" id="f-rect" onclick="setFig('rect')">▭ Rectángulo</button>
+          <button class="btn3" id="f-tri" onclick="setFig('tri')">▲ Triángulo</button>
+          <button class="btn3" id="f-circ" onclick="setFig('circ')">● Círculo</button>
+          <button class="btn3" id="f-pris" onclick="setFig('pris')">📦 Prisma</button>
+        </div>
+        <div id="ctrlFig"></div>
+        <div class="out"><div class="k" id="k1">Perímetro</div><div class="v" id="v1">—</div></div>
+        <div class="out"><div class="k" id="k2">Área</div><div class="v" id="v2">—</div></div>
+      </div>
+      <div>
+        <svg id="figSvg" viewBox="0 0 420 300" style="width:100%;background:var(--claro);border-radius:18px"></svg>
+        <div class="form" style="margin-top:14px;font-size:19px" id="figForm">P = 2(b + h) · A = b × h</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 20 · APLICACIÓN GEOMETRÍA ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🚔</div><div><span class="sub">Tema 5 · Aplicación</span><h2>Geometría en el lugar de los hechos</h2></div></div>
+    <div class="g23">
+      <div>
+        <div class="alert a-info" style="margin-bottom:16px">
+          <span class="i">📍</span>
+          <div><b>Situación.</b> Se debe acordonar y rastrear un lote rectangular de <b>32 m × 18 m</b>. Se necesita saber cuánta cinta perimetral se requiere y cuánta superficie deben cubrir los equipos de búsqueda.</div>
+        </div>
+        <table class="tb">
+          <tr><th>Pregunta</th><th>Operación</th><th>Resultado</th></tr>
+          <tr><td>¿Cuánta cinta?</td><td class="f">P = 2(32 + 18)</td><td><b>100 m</b></td></tr>
+          <tr><td>¿Cuánta superficie?</td><td class="f">A = 32 × 18</td><td><b>576 m²</b></td></tr>
+          <tr><td>¿Cuántos equipos si cada uno cubre 48 m²?</td><td class="f">576 ÷ 48</td><td><b>12 equipos</b></td></tr>
+          <tr><td>Si la cinta viene en rollos de 30 m</td><td class="f">100 ÷ 30 = 3,33</td><td><b>4 rollos</b></td></tr>
+        </table>
+        <div class="alert a-warn" style="margin-top:16px">
+          <span class="i">🎯</span>
+          <div><b>Note el último cálculo.</b> El resultado matemático es 3,33 rollos, pero la respuesta operativa es <b>4</b>. Razonar cuantitativamente incluye saber cuándo <b>redondear hacia arriba</b> porque el contexto lo exige: no existen tercios de rollo.</div>
+        </div>
+      </div>
+      <div style="display:grid;gap:16px">
+        <div class="foto" style="height:210px">
+          <div class="emo">🏗️</div>
+          <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=900&q=80" alt="Geometría en estructuras" onerror="this.classList.add('fail')">
+          <div class="cap">Medir con criterio: la geometría del espacio real</div>
+        </div>
+        <svg viewBox="0 0 300 190" style="width:100%;background:var(--claro);border-radius:16px;padding:6px">
+          <rect x="45" y="45" width="210" height="115" fill="#e63946" opacity=".16" stroke="#e63946" stroke-width="3" stroke-dasharray="9 5"/>
+          <text x="150" y="36" text-anchor="middle" font-size="14" font-weight="800" fill="#a01722" font-family="Segoe UI">32 m</text>
+          <text x="25" y="108" text-anchor="middle" font-size="14" font-weight="800" fill="#a01722" font-family="Segoe UI" transform="rotate(-90 25 108)">18 m</text>
+          <text x="150" y="108" text-anchor="middle" font-size="17" font-weight="800" fill="#0b2545" font-family="Segoe UI">576 m²</text>
+          <text x="150" y="180" text-anchor="middle" font-size="12" fill="#64748b" font-family="Segoe UI">Perímetro 100 m · 12 equipos de rastreo</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 21 · AUTOEVALUACIÓN ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🏁</div><div><span class="sub">Cierre</span><h2>Autoevaluación de la unidad</h2></div></div>
+    <div class="g2">
+      <div class="sim">
+        <h3>❓ <span id="qNum">Pregunta 1 de 4</span></h3>
+        <p style="color:#dbe7f5;font-size:17px;margin-top:12px" id="qTxt">—</p>
+        <div id="qOpts"></div>
+        <div class="fb" id="qFb"></div>
+        <div style="display:flex;gap:10px;margin-top:14px;align-items:center">
+          <button class="btn2" id="qNext" onclick="sigPregunta()" disabled>Siguiente ▶</button>
+          <span style="color:#a9c2de;font-size:14px;font-weight:700">Aciertos: <b id="qScore" style="color:var(--oro2)">0</b></span>
+        </div>
+      </div>
+      <div>
+        <h3>📌 Lo que debe llevarse de la Unidad 1</h3>
+        <div class="box" style="margin-bottom:10px"><h4>1 · Notación científica</h4><p style="font-size:14.5px">La mantisa va entre 1 y 10. El exponente cuenta los saltos de la coma.</p></div>
+        <div class="box verde" style="margin-bottom:10px"><h4>2 · Operaciones</h4><p style="font-size:14.5px">Paréntesis → potencias → multiplicación y división → suma y resta. El orden decide el resultado.</p></div>
+        <div class="box oro" style="margin-bottom:10px"><h4>3 · Fracciones y porcentajes</h4><p style="font-size:14.5px">Son la misma relación escrita de cuatro maneras. La variación % siempre se calcula sobre el valor inicial.</p></div>
+        <div class="box violeta" style="margin-bottom:10px"><h4>4 · Función lineal</h4><p style="font-size:14.5px">m es el cambio por unidad; b es el punto de partida. Sirve para modelar y anticipar.</p></div>
+        <div class="box rojo"><h4>5 · Figuras geométricas</h4><p style="font-size:14.5px">Las unidades delatan qué se midió: m, m² o m³.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 22 · CIERRE ============ -->
+<section class="slide">
+  <div class="portada" style="grid-template-columns:1fr">
+    <div style="text-align:center;color:#fff">
+      <div class="badge">✅ FIN DE LA UNIDAD 1</div>
+      <h1 style="color:#fff">Ya tiene<span>la caja de herramientas</span></h1>
+      <p class="lead" style="margin:18px auto 0;max-width:700px;color:#dbe7f5">
+        Con estos cinco temas puede medir, comparar, modelar y predecir.
+        En la <b style="color:#fff">Unidad 2</b> daremos el siguiente paso: pasar del dato individual
+        al comportamiento del conjunto con los fundamentos de la estadística.
+      </p>
+      <div class="g4" style="max-width:880px;margin:34px auto 0">
+        <div class="kpi"><div class="num">5</div><div class="lbl">Temas</div></div>
+        <div class="kpi"><div class="num">48</div><div class="lbl">Horas</div></div>
+        <div class="kpi"><div class="num">7</div><div class="lbl">Simuladores</div></div>
+        <div class="kpi"><div class="num">R1</div><div class="lbl">Resultado</div></div>
+      </div>
+      <div style="margin-top:34px;background:#ffffff14;border:1px solid #ffffff2b;border-radius:20px;
+                  padding:20px 26px;max-width:560px;margin-left:auto;margin-right:auto;backdrop-filter:blur(8px)">
+        <div style="color:var(--oro2);font-size:11.5px;letter-spacing:2px;font-weight:800;text-transform:uppercase">Docente</div>
+        <div style="color:#fff;font-size:21px;font-weight:700;margin-top:3px">Yenifer Fontalvo Marriaga</div>
+        <div style="color:#a9c2de;font-size:13.5px;margin-top:3px">Electiva I · Razonamiento Cuantitativo</div>
+      </div>
+      <p style="color:#8ea9c7;font-size:12.5px;margin-top:28px;letter-spacing:2px">
+        DIRECCIÓN DE EDUCACIÓN POLICIAL · ADMINISTRACIÓN POLICIAL VIRTUAL
+      </p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div id="nav">
+  <button class="btn" id="prev">◀ Anterior</button>
+  <div id="dots"></div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span id="cont">1 / 22</span>
+    <button class="btn" id="next">Siguiente ▶</button>
+  </div>
+</div>
+
+<script>
+/* ================= NAVEGACIÓN ================= */
+const slides=[...document.querySelectorAll('.slide')];
+let i=0;
+const dots=document.getElementById('dots');
+slides.forEach((_,k)=>{const d=document.createElement('i');d.onclick=()=>go(k);dots.appendChild(d)});
+function go(n){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('on'); i=n; slides[i].classList.add('on'); slides[i].scrollTop=0;
+  [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));
+  document.getElementById('cont').textContent=(i+1)+' / '+slides.length;
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('prev').disabled=(i===0);
+  document.getElementById('next').disabled=(i===slides.length-1);
+  anima(slides[i]);
+}
+document.getElementById('prev').onclick=()=>go(i-1);
+document.getElementById('next').onclick=()=>go(i+1);
+document.addEventListener('keydown',e=>{
+  if(['INPUT','TEXTAREA'].includes(e.target.tagName))return;
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(i+1)}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(i-1)}
+  if(e.key==='Home')go(0); if(e.key==='End')go(slides.length-1);
+  if(e.key.toLowerCase()==='f')document.documentElement.requestFullscreen?.();
+});
+let x0=null;
+document.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{
+  if(x0===null)return;
+  const dx=e.changedTouches[0].clientX-x0;
+  if(Math.abs(dx)>70) dx<0?go(i+1):go(i-1);
+  x0=null;
+},{passive:true});
+function anima(s){
+  s.querySelectorAll('[data-c]').forEach(el=>{
+    const fin=+el.dataset.c;let n=0;const paso=Math.max(1,Math.round(fin/26));
+    el.textContent='0';
+    const t=setInterval(()=>{n+=paso;if(n>=fin){n=fin;clearInterval(t)}el.textContent=n},28);
+  });
+}
+
+/* ================= UTILIDADES ================= */
+const fmt=n=>n.toLocaleString('es-CO',{maximumFractionDigits:2});
+const sup=e=>`<small>${e}</small>`;
+
+/* ========== 1 · NOTACIÓN CIENTÍFICA ========== */
+function setNot(v){document.getElementById('nEnt').value=v;convNot()}
+function convNot(){
+  const raw=document.getElementById('nEnt').value.replace(/\s/g,'').replace(',','.');
+  const n=parseFloat(raw);
+  const sal=document.getElementById('nSal'), exp=document.getElementById('nExp');
+  if(!raw||isNaN(n)){sal.textContent='—';exp.textContent='Escriba un número válido';return}
+  if(n===0){sal.textContent='0';exp.textContent='El cero es el único número sin notación científica';return}
+  const e=Math.floor(Math.log10(Math.abs(n)));
+  const m=n/Math.pow(10,e);
+  const mTxt=parseFloat(m.toFixed(4)).toString().replace('.',',');
+  sal.innerHTML=`${mTxt} × 10${sup(e)}`;
+  const dir=e>0?'izquierda':'derecha';
+  exp.textContent=e===0
+    ? 'El número ya está entre 1 y 10: el exponente es 0.'
+    : `La coma se movió ${Math.abs(e)} lugar${Math.abs(e)===1?'':'es'} hacia la ${dir}, por eso el exponente es ${e>0?'+':''}${e}.`;
+}
+const refs={'-9':'el tamaño de una molécula de agua','-8':'el diámetro de un virus pequeño','-7':'la longitud de onda de la luz visible','-6':'el tamaño de una bacteria','-5':'el grosor de una tela fina','-4':'el diámetro de un cabello humano','-3':'un milímetro: el grosor de una tarjeta','-2':'un centímetro: el ancho de un dedo','-1':'un decímetro: la palma de la mano','0':'una unidad: un paso, un metro, un peso','1':'la altura de una casa de tres pisos','2':'los habitantes de un edificio','3':'los habitantes de un barrio pequeño','4':'un estadio lleno de espectadores','5':'los habitantes de un municipio mediano','6':'los habitantes de una ciudad grande','7':'la población de un departamento grande','8':'el doble de la población de Colombia','9':'mil millones: un presupuesto institucional','10':'diez mil millones de pesos','11':'cien mil millones: presupuesto sectorial','12':'un billón: escala del presupuesto nacional'};
+function escala(){
+  const e=+document.getElementById('eSlider').value;
+  document.getElementById('eVal').innerHTML=`10<sup>${e}</sup>`;
+  const val=Math.pow(10,e);
+  document.getElementById('eNum').textContent = e>=0 ? val.toLocaleString('es-CO') : val.toFixed(Math.abs(e)).replace('.',',');
+  document.getElementById('eRef').textContent=refs[e]||'—';
+}
+
+/* ========== 2 · JERARQUÍA DE OPERACIONES ========== */
+const PASOS=[
+ {q:'1º Paréntesis',t:'(10 − 6) = 4',r:'8 + 3 × <mark>4</mark>² ÷ 4'},
+ {q:'2º Potencias',t:'4² = 16',r:'8 + 3 × <mark>16</mark> ÷ 4'},
+ {q:'3º Multiplicación (izquierda a derecha)',t:'3 × 16 = 48',r:'8 + <mark>48</mark> ÷ 4'},
+ {q:'3º División',t:'48 ÷ 4 = 12',r:'8 + <mark>12</mark>'},
+ {q:'4º Suma',t:'8 + 12 = 20',r:'<mark>20</mark>'}
+];
+let pIdx=0;
+function pintarPasos(){
+  document.getElementById('pasos').innerHTML=PASOS.map((p,k)=>
+    `<div class="paso-op ${k<pIdx?'on':''}"><span class="q">${p.q} — ${p.t}</span><code>${p.r}</code></div>`).join('');
+  const b=document.getElementById('btnPaso');
+  b.disabled = pIdx>=PASOS.length;
+  b.textContent = pIdx>=PASOS.length ? '✓ Resultado: 20' : 'Siguiente paso ▶';
+}
+function sigPaso(){if(pIdx<PASOS.length){pIdx++;pintarPasos()}}
+function resetPasos(){pIdx=0;pintarPasos()}
+
+/* ========== 3 · CONVERSOR FRACCIONES ========== */
+function mcd(a,b){return b?mcd(b,a%b):a}
+function conv(){
+  let num=+document.getElementById('numS').value, den=+document.getElementById('denS').value;
+  document.getElementById('numV').textContent=num;
+  document.getElementById('denV').textContent=den;
+  const dec=num/den, pct=dec*100;
+  const g=mcd(num,den)||1;
+  const simp = (num>0 && g>1) ? ` <small>= ${num/g}/${den/g}</small>` : '';
+  document.getElementById('oFrac').innerHTML=`${num}/${den}${simp}`;
+  document.getElementById('oDec').textContent=dec.toFixed(3).replace('.',',');
+  document.getElementById('oPct').textContent=fmt(pct)+' %';
+  const resto=den-num;
+  document.getElementById('oRaz').textContent = resto>0 ? `${num} : ${resto}` : (num===den?'todo':'0 : '+den);
+  // barra
+  const b=document.getElementById('barra');
+  b.style.width=Math.min(100,pct)+'%';
+  b.textContent=fmt(pct)+' %';
+  // pizza
+  const R=88,cx=110,cy=110;
+  let s='';
+  for(let k=0;k<den;k++){
+    const a1=(k/den)*2*Math.PI-Math.PI/2, a2=((k+1)/den)*2*Math.PI-Math.PI/2;
+    const x1=cx+R*Math.cos(a1), y1=cy+R*Math.sin(a1);
+    const x2=cx+R*Math.cos(a2), y2=cy+R*Math.sin(a2);
+    const big=(a2-a1)>Math.PI?1:0;
+    const col=k<num?'#1d4e89':'#e2e8f0';
+    s+=`<path d="M${cx} ${cy} L${x1} ${y1} A${R} ${R} 0 ${big} 1 ${x2} ${y2} Z" fill="${col}" stroke="#fff" stroke-width="2.5"/>`;
+  }
+  document.getElementById('pizza').innerHTML=s;
+}
+
+/* ========== 3b · VARIACIÓN PORCENTUAL ========== */
+function varPct(){
+  const a=parseFloat(document.getElementById('vIni').value), b=parseFloat(document.getElementById('vFin').value);
+  const abs=document.getElementById('rAbs'), pc=document.getElementById('rPct'), it=document.getElementById('rInt');
+  if(isNaN(a)||isNaN(b)){abs.textContent='—';pc.textContent='—';it.textContent='Ingrese ambos valores';return}
+  const d=b-a;
+  abs.textContent=(d>=0?'+':'')+fmt(d)+' unidades';
+  if(a===0){pc.textContent='indefinido';it.textContent='No se puede calcular variación porcentual desde cero: no hay base de comparación.';return}
+  const p=(d/a)*100;
+  pc.textContent=(p>=0?'+':'')+fmt(p)+' %';
+  pc.style.color = p>0?'#ff8fa3' : (p<0?'#8ef0d8':'#fff');
+  it.textContent = d===0 ? 'No hubo variación entre los dos periodos.'
+    : `Por cada 100 unidades del valor inicial, ${p>0?'se sumaron':'se restaron'} ${fmt(Math.abs(p))}. La diferencia absoluta (${fmt(Math.abs(d))}) y la relativa (${fmt(Math.abs(p))} %) NO son lo mismo.`;
+}
+
+/* ========== 3c · REGLA DE TRES ========== */
+function regla3(){
+  const A=parseFloat(document.getElementById('pA').value),
+        B=parseFloat(document.getElementById('pB').value),
+        C=parseFloat(document.getElementById('pC').value);
+  document.getElementById('p1').textContent=isNaN(A)?'—':A;
+  document.getElementById('p2').textContent=isNaN(B)?'—':B;
+  document.getElementById('p3').textContent=isNaN(C)?'—':C;
+  document.getElementById('propView').textContent=`${A} / ${B} = ${C} / X`;
+  const r=document.getElementById('pRes'), k=document.getElementById('pK');
+  if(isNaN(A)||isNaN(B)||isNaN(C)||A===0){r.textContent='—';k.textContent='Revise los valores (A no puede ser 0)';return}
+  const X=(B*C)/A;
+  r.textContent=fmt(X);
+  k.textContent=`${fmt(B/A)} unidades por cada una — se multiplicó ${fmt(B)} × ${fmt(C)} y se dividió entre ${fmt(A)}`;
+}
+
+/* ========== 4 · GRAFICADOR LINEAL ========== */
+function graf(){
+  const m=parseFloat(document.getElementById('mS').value), b=parseFloat(document.getElementById('bS').value);
+  document.getElementById('mV').textContent='m = '+fmt(m);
+  document.getElementById('bV').textContent='b = '+fmt(b);
+  const sg = b<0 ? '− '+Math.abs(b) : '+ '+b;
+  document.getElementById('ecu').textContent=`y = ${fmt(m).replace('-','−')}x ${sg}`;
+  document.getElementById('mTxt').textContent = m===0
+    ? 'La recta es horizontal: y no cambia aunque x aumente.'
+    : `Por cada unidad que aumenta x, y ${m>0?'aumenta':'disminuye'} ${fmt(Math.abs(m))}.`;
+  document.getElementById('bTxt').textContent=`La recta corta el eje vertical en y = ${fmt(b)}: es el valor de partida cuando x = 0.`;
+
+  const W=460,H=340,ox=230,oy=170,sx=19,sy=13;
+  const X=x=>ox+x*sx, Y=y=>oy-y*sy;
+  let g=`<defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#1d4e89"/><stop offset="1" stop-color="#7b2cbf"/></linearGradient></defs>`;
+  for(let k=-11;k<=11;k++){
+    g+=`<line x1="${X(k)}" y1="0" x2="${X(k)}" y2="${H}" stroke="#dbe4ef" stroke-width="1"/>`;
+  }
+  for(let k=-12;k<=12;k++){
+    g+=`<line x1="0" y1="${Y(k)}" x2="${W}" y2="${Y(k)}" stroke="#dbe4ef" stroke-width="1"/>`;
+  }
+  g+=`<line x1="0" y1="${oy}" x2="${W}" y2="${oy}" stroke="#64748b" stroke-width="2.5"/>`;
+  g+=`<line x1="${ox}" y1="0" x2="${ox}" y2="${H}" stroke="#64748b" stroke-width="2.5"/>`;
+  const y1=m*(-12)+b, y2=m*(12)+b;
+  g+=`<line x1="${X(-12)}" y1="${Y(y1)}" x2="${X(12)}" y2="${Y(y2)}" stroke="url(#lg)" stroke-width="5" stroke-linecap="round"/>`;
+  g+=`<circle cx="${X(0)}" cy="${Y(b)}" r="8" fill="#e0a80d" stroke="#fff" stroke-width="3"/>`;
+  g+=`<text x="${X(0)+13}" y="${Y(b)-9}" font-size="14" font-weight="800" fill="#8a6100" font-family="Segoe UI">b = ${fmt(b)}</text>`;
+  if(m!==0){
+    const px=2, py=m*px+b;
+    g+=`<line x1="${X(0)}" y1="${Y(b)}" x2="${X(px)}" y2="${Y(b)}" stroke="#e63946" stroke-width="3" stroke-dasharray="5 4"/>`;
+    g+=`<line x1="${X(px)}" y1="${Y(b)}" x2="${X(px)}" y2="${Y(py)}" stroke="#1b998b" stroke-width="3" stroke-dasharray="5 4"/>`;
+    g+=`<text x="${X(1)-8}" y="${Y(b)+18}" font-size="12.5" font-weight="800" fill="#a01722" font-family="Segoe UI">Δx = 2</text>`;
+    g+=`<text x="${X(px)+7}" y="${(Y(b)+Y(py))/2}" font-size="12.5" font-weight="800" fill="#0f766e" font-family="Segoe UI">Δy = ${fmt(m*2)}</text>`;
+  }
+  g+=`<text x="${W-16}" y="${oy-9}" font-size="13" font-weight="700" fill="#64748b" font-family="Segoe UI">x</text>`;
+  g+=`<text x="${ox+9}" y="16" font-size="13" font-weight="700" fill="#64748b" font-family="Segoe UI">y</text>`;
+  document.getElementById('plano').innerHTML=g;
+}
+
+/* ========== 4b · COSTO LINEAL ========== */
+function costo(){
+  const x=+document.getElementById('patS').value;
+  document.getElementById('patV').textContent=x;
+  const c=45000*x+800000;
+  document.getElementById('cRes').textContent='$'+c.toLocaleString('es-CO');
+  document.getElementById('cDes').textContent=`$800.000 fijos + ${x} × $45.000 = $${(45000*x).toLocaleString('es-CO')} variables`;
+}
+
+/* ========== 5 · LABORATORIO DE FIGURAS ========== */
+let figAct='rect';
+const FIGS={
+  rect:{nom:'Rectángulo',form:'P = 2(b + h) · A = b × h',
+    ctrl:[['b','Base (m)',12,1,20],['h','Altura (m)',7,1,20]],k1:'Perímetro',k2:'Área'},
+  tri:{nom:'Triángulo',form:'A = (b × h) ÷ 2',
+    ctrl:[['b','Base (m)',12,1,20],['h','Altura (m)',9,1,20]],k1:'Área',k2:'Comparación'},
+  circ:{nom:'Círculo',form:'P = 2πr · A = πr²',
+    ctrl:[['r','Radio (m)',6,1,12]],k1:'Perímetro (circunferencia)',k2:'Área'},
+  pris:{nom:'Prisma rectangular',form:'V = largo × ancho × alto',
+    ctrl:[['b','Largo (m)',8,1,15],['h','Ancho (m)',5,1,15],['p','Alto (m)',4,1,15]],k1:'Volumen',k2:'Área superficial'}
+};
+function setFig(f){
+  figAct=f;
+  ['rect','tri','circ','pris'].forEach(k=>document.getElementById('f-'+k).classList.toggle('act',k===f));
+  const cfg=FIGS[f];
+  document.getElementById('figForm').textContent=cfg.form;
+  document.getElementById('k1').textContent=cfg.k1;
+  document.getElementById('k2').textContent=cfg.k2;
+  document.getElementById('ctrlFig').innerHTML=cfg.ctrl.map(([id,lbl,val,mn,mx])=>
+    `<div class="ctrl"><label>${lbl} <b id="fg${id}V">${val}</b></label>
+     <input type="range" id="fg${id}S" min="${mn}" max="${mx}" value="${val}" step="1" oninput="calcFig()"></div>`).join('');
+  calcFig();
+}
+function calcFig(){
+  const get=id=>{const e=document.getElementById('fg'+id+'S');return e?+e.value:0};
+  const set=(id,v)=>{const e=document.getElementById('fg'+id+'V');if(e)e.textContent=v};
+  const v1=document.getElementById('v1'), v2=document.getElementById('v2');
+  const svg=document.getElementById('figSvg');
+  let g='';
+  if(figAct==='rect'){
+    const b=get('b'),h=get('h');set('b',b);set('h',h);
+    v1.innerHTML=fmt(2*(b+h))+' <small>m</small>';
+    v2.innerHTML=fmt(b*h)+' <small>m²</small>';
+    const w=b*16,ht=h*11,x=(420-w)/2,y=(300-ht)/2;
+    g=`<rect x="${x}" y="${y}" width="${w}" height="${ht}" fill="#1d4e89" opacity=".22" stroke="#1d4e89" stroke-width="4"/>
+       <text x="${210}" y="${y-12}" text-anchor="middle" font-size="15" font-weight="800" fill="#1d4e89" font-family="Segoe UI">${b} m</text>
+       <text x="${x-16}" y="${y+ht/2}" text-anchor="middle" font-size="15" font-weight="800" fill="#1d4e89" font-family="Segoe UI" transform="rotate(-90 ${x-16} ${y+ht/2})">${h} m</text>
+       <text x="210" y="${y+ht/2+7}" text-anchor="middle" font-size="19" font-weight="800" fill="#0b2545" font-family="Segoe UI">${fmt(b*h)} m²</text>`;
+  }
+  if(figAct==='tri'){
+    const b=get('b'),h=get('h');set('b',b);set('h',h);
+    const A=b*h/2;
+    v1.innerHTML=fmt(A)+' <small>m²</small>';
+    v2.innerHTML=`la mitad de ${fmt(b*h)} m²`;
+    const w=b*16,ht=h*11,x=(420-w)/2,y=(300-ht)/2;
+    g=`<rect x="${x}" y="${y}" width="${w}" height="${ht}" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="7 5"/>
+       <polygon points="${x},${y+ht} ${x+w},${y+ht} ${x+w/2},${y}" fill="#1b998b" opacity=".35" stroke="#1b998b" stroke-width="4"/>
+       <text x="210" y="${y+ht+26}" text-anchor="middle" font-size="15" font-weight="800" fill="#0f766e" font-family="Segoe UI">base ${b} m</text>
+       <text x="${x+w/2+12}" y="${y+ht/2}" font-size="15" font-weight="800" fill="#0f766e" font-family="Segoe UI">altura ${h} m</text>
+       <text x="210" y="${y+ht*0.72}" text-anchor="middle" font-size="18" font-weight="800" fill="#0b2545" font-family="Segoe UI">${fmt(A)} m²</text>`;
+  }
+  if(figAct==='circ'){
+    const r=get('r');set('r',r);
+    v1.innerHTML=fmt(2*Math.PI*r)+' <small>m</small>';
+    v2.innerHTML=fmt(Math.PI*r*r)+' <small>m²</small>';
+    const R=r*11;
+    g=`<circle cx="210" cy="150" r="${R}" fill="#7b2cbf" opacity=".25" stroke="#7b2cbf" stroke-width="4"/>
+       <line x1="210" y1="150" x2="${210+R}" y2="150" stroke="#5a189a" stroke-width="3.5"/>
+       <circle cx="210" cy="150" r="5" fill="#5a189a"/>
+       <text x="${210+R/2}" y="142" text-anchor="middle" font-size="15" font-weight="800" fill="#5a189a" font-family="Segoe UI">r = ${r} m</text>
+       <text x="210" y="${150+R+26}" text-anchor="middle" font-size="17" font-weight="800" fill="#0b2545" font-family="Segoe UI">${fmt(Math.PI*r*r)} m²</text>`;
+  }
+  if(figAct==='pris'){
+    const b=get('b'),h=get('h'),p=get('p');set('b',b);set('h',h);set('p',p);
+    v1.innerHTML=fmt(b*h*p)+' <small>m³</small>';
+    v2.innerHTML=fmt(2*(b*h+b*p+h*p))+' <small>m²</small>';
+    const w=b*17,ht=p*13,d=h*7,x=110,y=95;
+    g=`<polygon points="${x},${y} ${x+w},${y} ${x+w},${y+ht} ${x},${y+ht}" fill="#e63946" opacity=".3" stroke="#e63946" stroke-width="3.5"/>
+       <polygon points="${x},${y} ${x+d},${y-d} ${x+w+d},${y-d} ${x+w},${y}" fill="#e63946" opacity=".55" stroke="#e63946" stroke-width="3.5"/>
+       <polygon points="${x+w},${y} ${x+w+d},${y-d} ${x+w+d},${y+ht-d} ${x+w},${y+ht}" fill="#a01722" opacity=".45" stroke="#e63946" stroke-width="3.5"/>
+       <text x="${x+w/2}" y="${y+ht+24}" text-anchor="middle" font-size="14" font-weight="800" fill="#a01722" font-family="Segoe UI">largo ${b} m</text>
+       <text x="${x-14}" y="${y+ht/2}" text-anchor="middle" font-size="14" font-weight="800" fill="#a01722" font-family="Segoe UI" transform="rotate(-90 ${x-14} ${y+ht/2})">alto ${p} m</text>
+       <text x="${x+w+d+10}" y="${y-d+16}" font-size="14" font-weight="800" fill="#a01722" font-family="Segoe UI">ancho ${h} m</text>
+       <text x="${x+w/2}" y="${y+ht/2+6}" text-anchor="middle" font-size="19" font-weight="800" fill="#0b2545" font-family="Segoe UI">${fmt(b*h*p)} m³</text>`;
+  }
+  svg.innerHTML=g;
+}
+
+/* ========== AUTOEVALUACIÓN ========== */
+const QZ=[
+ {p:'¿Cuál de estas expresiones está correctamente escrita en notación científica?',
+  o:['24,5 × 10³','2,45 × 10⁴','0,245 × 10⁵','245 × 10²'],c:1,
+  f:'La mantisa debe estar entre 1 y 10. Solo 2,45 cumple; las demás tienen mantisa fuera de ese rango aunque el valor numérico sea el mismo.'},
+ {p:'¿Cuál es el resultado de 6 + 2 × 5 ?',
+  o:['40','16','30','13'],c:1,
+  f:'Primero la multiplicación (2 × 5 = 10) y luego la suma (6 + 10 = 16). Operar de izquierda a derecha daría 40, que es incorrecto.'},
+ {p:'Un indicador pasó de 250 a 200. ¿Cuál fue la variación porcentual?',
+  o:['−50 %','−20 %','−25 %','−80 %'],c:1,
+  f:'(200 − 250) ÷ 250 = −0,20 → −20 %. Siempre se divide entre el valor INICIAL, no entre el final.'},
+ {p:'Un terreno mide 20 m × 15 m. ¿Cuánta cinta se necesita para rodearlo?',
+  o:['300 m','70 m','35 m','600 m'],c:1,
+  f:'Rodear es PERÍMETRO: 2(20 + 15) = 70 m. Los 300 m² serían el área, que responde a otra pregunta.'}
+];
+let qi=0,qScore=0;
+function pintarQ(){
+  const q=QZ[qi];
+  document.getElementById('qNum').textContent=`Pregunta ${qi+1} de ${QZ.length}`;
+  document.getElementById('qTxt').textContent=q.p;
+  document.getElementById('qOpts').innerHTML=q.o.map((t,k)=>
+    `<div class="opt" onclick="respQ(${k})"><span class="k">${'ABCD'[k]}</span> ${t}</div>`).join('');
+  document.getElementById('qFb').classList.remove('show');
+  document.getElementById('qNext').disabled=true;
+}
+function respQ(k){
+  const q=QZ[qi], opts=[...document.getElementById('qOpts').children];
+  opts.forEach(o=>o.onclick=null);
+  opts[q.c].classList.add('ok');
+  if(k===q.c){qScore++} else {opts[k].classList.add('no')}
+  document.getElementById('qScore').textContent=qScore;
+  const fb=document.getElementById('qFb');
+  fb.innerHTML=(k===q.c?'✅ <b>Correcto.</b> ':'❌ <b>Revisemos.</b> ')+q.f;
+  fb.classList.add('show');
+  document.getElementById('qNext').disabled=false;
+}
+function sigPregunta(){
+  if(qi<QZ.length-1){qi++;pintarQ()}
+  else{
+    document.getElementById('qNum').textContent='Resultado final';
+    document.getElementById('qTxt').innerHTML=`Obtuvo <b style="color:var(--oro2);font-size:26px">${qScore} de ${QZ.length}</b> respuestas correctas.`;
+    document.getElementById('qOpts').innerHTML='';
+    const fb=document.getElementById('qFb');
+    fb.innerHTML = qScore===4 ? '🏆 <b>Excelente.</b> Domina los conceptos clave de la unidad. Está listo para la Unidad 2.'
+      : qScore>=3 ? '👍 <b>Muy bien.</b> Repase el punto que falló y estará completamente preparado.'
+      : qScore>=2 ? '📖 <b>Vamos bien.</b> Conviene volver sobre los simuladores de esta presentación antes de avanzar.'
+      : '🔄 <b>A repasar.</b> Recorra otra vez los cinco temas usando los simuladores: son la mejor forma de fijar estos conceptos.';
+    fb.classList.add('show');
+    const btn=document.getElementById('qNext');
+    btn.textContent='↺ Repetir';
+    btn.onclick=()=>{qi=0;qScore=0;document.getElementById('qScore').textContent=0;
+      btn.textContent='Siguiente ▶';btn.onclick=sigPregunta;pintarQ()};
+  }
+}
+
+/* ================= ARRANQUE ================= */
+convNot(); escala(); pintarPasos(); conv(); varPct(); regla3(); graf(); costo(); setFig('rect'); pintarQ();
+go(0);
+</script>
+</body>
+</html>
