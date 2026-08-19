@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Porcentajes, proporciones, ecuaciones y estadística | Razonamiento Cuantitativo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --azul:#0b2545; --azul2:#13315c; --azul3:#1d4e89;
+  --oro:#e0a80d; --oro2:#ffd166;
+  --verde:#1b998b; --rojo:#e63946; --violeta:#7b2cbf;
+  --claro:#f6f8fc; --blanco:#fff; --gris:#64748b;
+  --sombra:0 20px 50px rgba(11,37,69,.18);
+  --sombra2:0 8px 24px rgba(11,37,69,.12);
+}
+html,body{height:100%}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  background:
+    radial-gradient(1200px 700px at 10% -10%, #1d4e89 0%, transparent 55%),
+    radial-gradient(900px 600px at 100% 110%, #7b2cbf22 0%, transparent 60%),
+    linear-gradient(135deg,#081b33 0%,#0b2545 55%,#13315c 100%);
+  color:#0f172a; overflow:hidden;
+}
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;padding:42px 54px 84px;overflow-y:auto;
+  animation:entra .55s cubic-bezier(.22,1,.36,1) both}
+.slide.on{display:block}
+@keyframes entra{from{opacity:0;transform:translateY(28px) scale(.985)}to{opacity:1;transform:none}}
+.slide::-webkit-scrollbar{width:8px}
+.slide::-webkit-scrollbar-thumb{background:#ffffff44;border-radius:8px}
+.card{background:var(--blanco);border-radius:26px;box-shadow:var(--sombra);padding:30px 36px;
+  max-width:1290px;margin:0 auto;min-height:calc(100vh - 146px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:7px;
+  background:linear-gradient(90deg,var(--azul),var(--verde),var(--oro),var(--rojo))}
+
+h1{font-size:clamp(30px,4.2vw,54px);line-height:1.08;color:var(--azul);letter-spacing:-.5px}
+h2{font-size:clamp(22px,2.7vw,35px);color:var(--azul);margin-bottom:4px;letter-spacing:-.3px}
+h3{font-size:18.5px;color:var(--azul2);margin-bottom:7px}
+h4{font-size:15.5px;color:var(--azul2)}
+p{font-size:16px;line-height:1.6;color:#334155}
+.lead{font-size:18px;color:#475569;line-height:1.68}
+.sub{color:var(--gris);font-size:13.5px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700}
+.hl{background:linear-gradient(180deg,transparent 58%,var(--oro2) 58%);padding:0 4px;font-weight:700;color:var(--azul)}
+.tit{display:flex;align-items:center;gap:15px;margin-bottom:16px;flex-wrap:wrap}
+.tit .ico{width:56px;height:56px;flex:0 0 56px;border-radius:17px;display:grid;place-items:center;
+  font-size:27px;background:linear-gradient(135deg,var(--azul3),var(--azul));color:#fff;
+  box-shadow:0 10px 22px rgba(29,78,137,.35)}
+
+.portada{min-height:calc(100vh - 146px);display:grid;grid-template-columns:1.1fr .9fr;gap:38px;
+  align-items:center;color:#fff;max-width:1240px;margin:0 auto}
+.badge{display:inline-flex;align-items:center;gap:9px;background:#ffffff1f;border:1px solid #ffffff38;
+  color:#fff;padding:9px 18px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:1.4px;
+  backdrop-filter:blur(6px);margin-bottom:18px}
+.portada h1{color:#fff;text-shadow:0 6px 30px rgba(0,0,0,.35)}
+.portada h1 span{display:block;background:linear-gradient(90deg,var(--oro2),#fff 60%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.portada .lead{color:#dbe7f5;margin-top:15px;max-width:560px}
+.flot{animation:flot 5.5s ease-in-out infinite}
+@keyframes flot{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+
+.docente{background:#ffffff14;border:1px solid #ffffff2b;border-radius:20px;padding:15px 21px;
+  display:flex;align-items:center;gap:15px;max-width:490px;backdrop-filter:blur(8px)}
+.docente small{display:block;color:var(--oro2);font-size:11px;letter-spacing:2px;
+  text-transform:uppercase;font-weight:800}
+.docente b{font-size:18.5px;color:#fff;display:block;margin-top:2px}
+.docente i{font-style:normal;color:#a9c2de;font-size:12.5px;display:block;margin-top:2px}
+.avatar{width:70px;height:70px;flex:0 0 70px;border-radius:50%;overflow:hidden;
+  background:linear-gradient(135deg,var(--oro),#ff8c42);border:3px solid var(--oro2);
+  box-shadow:0 8px 20px rgba(224,168,13,.45)}
+.avatar img{width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.g23{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:start}
+.g32{display:grid;grid-template-columns:.85fr 1.15fr;gap:24px;align-items:start}
+
+.box{background:var(--claro);border:1px solid #e2e8f0;border-radius:18px;padding:17px;
+  transition:.25s;position:relative;overflow:hidden}
+.box:hover{transform:translateY(-5px);box-shadow:var(--sombra2);border-color:var(--azul3)}
+.box .n{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+  font-weight:800;color:#fff;font-size:17px;margin-bottom:9px;background:var(--azul3)}
+.box p{font-size:14.5px}
+.box.oro .n{background:var(--oro)} .box.verde .n{background:var(--verde)}
+.box.rojo .n{background:var(--rojo)} .box.violeta .n{background:var(--violeta)}
+
+.kpi{background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;border-radius:20px;
+  padding:17px 13px;text-align:center;box-shadow:var(--sombra2)}
+.kpi .num{font-size:36px;font-weight:800;line-height:1;
+  background:linear-gradient(90deg,var(--oro2),#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.kpi .lbl{font-size:11px;letter-spacing:1.3px;text-transform:uppercase;color:#b9cde4;margin-top:6px;font-weight:700}
+
+.sim{background:linear-gradient(150deg,#0b2545,#1d4e89);border-radius:22px;padding:20px 22px;color:#fff;
+  box-shadow:var(--sombra)}
+.sim.v{background:linear-gradient(150deg,#5a189a,#7b2cbf)}
+.sim.g{background:linear-gradient(150deg,#0f766e,#1b998b)}
+.sim.r{background:linear-gradient(150deg,#7a1220,#e63946)}
+.sim h3{color:var(--oro2);font-size:18px;display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.sim .tag{display:inline-block;background:var(--oro);color:#2b1a00;font-size:10px;font-weight:800;
+  letter-spacing:1.4px;padding:4px 10px;border-radius:999px;text-transform:uppercase}
+.ctrl{margin-top:11px}
+.ctrl label{display:flex;justify-content:space-between;align-items:center;color:#cfe0f2;font-size:13px;
+  font-weight:700;margin-bottom:5px}
+.ctrl label b{color:var(--oro2);font-size:15.5px;font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;height:7px;border-radius:99px;-webkit-appearance:none;appearance:none;
+  background:#ffffff2e;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:21px;height:21px;border-radius:50%;
+  background:var(--oro2);border:3px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.4);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:19px;height:19px;border-radius:50%;background:var(--oro2);
+  border:3px solid #fff;cursor:pointer}
+input[type=number],input[type=text]{background:#ffffff17;border:1.5px solid #ffffff3d;color:#fff;
+  border-radius:11px;padding:10px 12px;font-size:15.5px;font-weight:700;width:100%;font-family:inherit}
+input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--oro2);background:#ffffff24}
+.out{background:#ffffff17;border:1.5px solid #ffffff30;border-radius:14px;padding:12px 15px;margin-top:10px}
+.out .k{color:#a9c2de;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;font-weight:800}
+.out .v{font-size:24px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;line-height:1.3;margin-top:2px}
+.out .v small{font-size:13.5px;color:var(--oro2);font-weight:700}
+.btn2{background:var(--oro);color:#2b1a00;border:none;border-radius:12px;padding:9px 17px;
+  font-size:14px;font-weight:800;cursor:pointer;transition:.2s;font-family:inherit}
+.btn2:hover{background:var(--oro2);transform:translateY(-2px)}
+.btn2:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn3{background:#ffffff1f;border:1.5px solid #ffffff3d;color:#fff;border-radius:11px;padding:8px 14px;
+  font-size:13px;font-weight:700;cursor:pointer;transition:.2s;font-family:inherit}
+.btn3:hover{background:#ffffff33}
+.btn3.act{background:var(--oro);color:#2b1a00;border-color:var(--oro)}
+
+.form{background:#fffbeb;border:2px dashed var(--oro);border-radius:16px;padding:13px 17px;
+  text-align:center;font-size:20px;font-weight:800;color:#6b4d00;letter-spacing:.4px}
+.form small{display:block;font-size:12px;font-weight:600;color:#8a6100;letter-spacing:1.3px;
+  text-transform:uppercase;margin-top:6px}
+.formd{background:#0b2545;border-radius:14px;padding:12px 15px;text-align:center;font-size:19px;
+  font-weight:800;color:var(--oro2);letter-spacing:.8px}
+.frac{display:inline-block;text-align:center;vertical-align:middle;font-size:.8em}
+.frac .a{border-bottom:2.5px solid currentColor;padding:0 7px;display:block}
+.frac .b{display:block;padding-top:2px}
+
+.paso-op{background:#ffffff14;border-left:4px solid #ffffff35;border-radius:0 12px 12px 0;
+  padding:10px 14px;margin-top:8px;opacity:.32;transition:.4s;font-size:15.5px}
+.paso-op.on{opacity:1;border-left-color:var(--oro);background:#ffffff26}
+.paso-op .q{color:#a9c2de;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;font-weight:800;display:block;margin-bottom:3px}
+.paso-op code{font-family:'Consolas','Courier New',monospace;font-size:17px;color:#fff;font-weight:700}
+.paso-op mark{background:var(--oro);color:#2b1a00;padding:1px 5px;border-radius:5px;font-weight:800}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.chip{background:#eef4fb;border:1px solid #cfe0f2;color:var(--azul2);padding:6px 12px;border-radius:999px;
+  font-size:12.5px;font-weight:600}
+.chip.o{background:#fff6e0;border-color:#f2dda4;color:#8a6100}
+.chip.v{background:#e6f7f4;border-color:#a9e5dc;color:#0f6b60}
+.chip.r{background:#fdeaec;border-color:#f5c2c7;color:#a01722}
+
+.tb{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px}
+.tb th{background:var(--azul);color:#fff;padding:9px 12px;text-align:left;font-size:12px;
+  letter-spacing:1px;text-transform:uppercase}
+.tb th:first-child{border-radius:12px 0 0 0} .tb th:last-child{border-radius:0 12px 0 0}
+.tb td{padding:9px 12px;border-bottom:1px solid #e2e8f0;color:#334155}
+.tb tr:nth-child(even) td{background:var(--claro)}
+.tb .f{font-family:'Consolas',monospace;font-weight:800;color:var(--azul3);font-size:14.5px}
+
+.alert{border-radius:16px;padding:13px 17px;font-size:14.8px;display:flex;gap:11px;align-items:flex-start}
+.alert .i{font-size:22px;line-height:1;flex:0 0 auto}
+.a-err{background:#fdeaec;border-left:5px solid var(--rojo);color:#7a1220}
+.a-ok{background:#e6f7f4;border-left:5px solid var(--verde);color:#0b5a51}
+.a-info{background:#eef4fb;border-left:5px solid var(--azul3);color:#153e6e}
+.a-warn{background:#fff6e0;border-left:5px solid var(--oro);color:#6b4d00}
+
+.cita{background:linear-gradient(135deg,#fff6e0,#fffdf6);border-left:6px solid var(--oro);
+  border-radius:0 18px 18px 0;padding:15px 19px;font-size:16px;font-style:italic;color:#5c4300;line-height:1.55}
+
+.opt{background:#ffffff14;border:1.5px solid #ffffff30;border-radius:13px;padding:10px 14px;margin-top:8px;
+  cursor:pointer;transition:.2s;font-size:14.5px;display:flex;align-items:center;gap:10px;color:#fff}
+.opt:hover{background:#ffffff26;transform:translateX(5px)}
+.opt .k{width:26px;height:26px;flex:0 0 26px;border-radius:8px;background:#ffffff2b;display:grid;place-items:center;font-weight:800;font-size:13px}
+.opt.ok{background:#1b998b;border-color:#06d6a0}
+.opt.no{background:#e6394655;border-color:#e63946}
+.fb{margin-top:10px;font-size:13.5px;background:#ffffff18;border-radius:11px;padding:10px 12px;display:none;color:#e8f1fb}
+.fb.show{display:block;animation:entra .4s both}
+
+#nav{position:fixed;left:0;right:0;bottom:0;height:58px;z-index:50;background:rgba(6,20,38,.8);
+  backdrop-filter:blur(14px);border-top:1px solid #ffffff1f;display:flex;align-items:center;
+  justify-content:space-between;padding:0 18px;color:#fff}
+#nav .btn{background:#ffffff1a;border:1px solid #ffffff33;color:#fff;border-radius:11px;padding:8px 14px;
+  font-size:13px;font-weight:700;cursor:pointer;transition:.2s;font-family:inherit}
+#nav .btn:hover{background:var(--oro);color:#2b1a00;border-color:var(--oro)}
+#nav .btn:disabled{opacity:.32;cursor:not-allowed}
+#dots{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;max-width:54vw}
+#dots i{width:7px;height:7px;border-radius:50%;background:#ffffff40;cursor:pointer;transition:.25s}
+#dots i.on{background:var(--oro);width:22px;border-radius:6px}
+#cont{font-size:12.5px;color:#b9cde4;font-weight:700;letter-spacing:1px;min-width:62px;text-align:right}
+#prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--oro),var(--verde));z-index:60;transition:width .35s;width:0}
+.marca{position:fixed;top:12px;right:18px;z-index:55;color:#ffffff8c;font-size:10.5px;letter-spacing:2px;font-weight:700}
+
+.tema{min-height:calc(100vh - 146px);display:grid;place-items:center;color:#fff;text-align:center}
+.tema .big{font-size:clamp(70px,13vw,155px);font-weight:800;line-height:.9;
+  background:linear-gradient(180deg,#ffffff40,#ffffff08);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tema h1{color:#fff;margin-top:-16px}
+
+@media(max-width:980px){
+  .g2,.g3,.g4,.g23,.g32,.portada{grid-template-columns:1fr}
+  .slide{padding:20px 13px 76px} .card{padding:20px 16px} #dots{display:none}
+}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<div class="marca">PORCENTAJES · PROPORCIONES · ECUACIONES · ESTADÍSTICA</div>
+
+<div id="deck">
+
+<!-- ============ 1 PORTADA ============ -->
+<section class="slide on">
+  <div class="portada">
+    <div>
+      <div class="badge">📊 PRESENTACIÓN 2 · TALLER APLICADO</div>
+      <h1>Del porcentaje<span>al análisis de datos</span></h1>
+      <p class="lead">Porcentajes, variaciones, proporciones, ecuaciones y estadística descriptiva: las cinco herramientas que convierten cifras sueltas en <b style="color:#fff">decisiones defendibles</b>.</p>
+      <div class="chips" style="margin-top:18px">
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">% Porcentajes</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">↗ Variaciones</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">⚖ Regla de tres</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">= Ecuaciones</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">📈 Media, mediana, moda</span>
+        <span class="chip" style="background:#ffffff1a;border-color:#ffffff33;color:#fff">📊 Gráficos</span>
+      </div>
+      <div class="docente" style="margin-top:22px">
+        <div class="avatar"><img src="data:image/jpeg;base64,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" alt="Yenifer Fontalvo Marriaga"></div>
+        <div>
+          <small>Docente</small>
+          <b>Yenifer Fontalvo Marriaga</b>
+          <i>Electiva I · Razonamiento Cuantitativo</i>
+        </div>
+      </div>
+      <p style="color:#9fb8d4;margin-top:16px;font-size:13.5px">▸ Use ← → para navegar · <b style="color:var(--oro2)">13 simuladores interactivos</b></p>
+    </div>
+    <div style="display:grid;place-items:center">
+      <svg class="flot" width="330" height="330" viewBox="0 0 200 200">
+        <defs>
+          <linearGradient id="ga" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="#e0a80d"/></linearGradient>
+          <linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06d6a0"/><stop offset="1" stop-color="#1b998b"/></linearGradient>
+        </defs>
+        <circle cx="100" cy="100" r="88" fill="none" stroke="#ffffff1a" stroke-width="2"/>
+        <path d="M100 100 L100 22 A78 78 0 0 1 168 139 Z" fill="url(#ga)" opacity=".9"/>
+        <path d="M100 100 L168 139 A78 78 0 0 1 32 139 Z" fill="#7b2cbf" opacity=".75"/>
+        <path d="M100 100 L32 139 A78 78 0 0 1 100 22 Z" fill="url(#gb)" opacity=".85"/>
+        <circle cx="100" cy="100" r="34" fill="#0b2545"/>
+        <text x="100" y="108" text-anchor="middle" font-size="27" font-weight="800" fill="#ffd166" font-family="Segoe UI">%</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 MAPA ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🗺️</div><div><span class="sub">Recorrido</span><h2>Seis bloques encadenados</h2></div></div>
+    <p class="lead" style="margin-bottom:18px">Cada bloque necesita el anterior. El porcentaje es una razón; la variación es un porcentaje aplicado al cambio; la regla de tres resuelve proporciones; la ecuación generaliza el despeje; y la estadística resume conjuntos de datos que se comunican con gráficos.</p>
+    <div class="g3" style="grid-template-columns:repeat(6,1fr);gap:12px">
+      <div class="box" onclick="go(2)" style="cursor:pointer"><div class="n">1</div><h4>Porcentajes</h4><p style="font-size:12.5px;margin-top:4px">La parte y el todo</p></div>
+      <div class="box verde" onclick="go(5)" style="cursor:pointer"><div class="n">2</div><h4>Variación %</h4><p style="font-size:12.5px;margin-top:4px">Cuánto cambió</p></div>
+      <div class="box oro" onclick="go(11)" style="cursor:pointer"><div class="n">3</div><h4>Regla de tres</h4><p style="font-size:12.5px;margin-top:4px">Proporciones</p></div>
+      <div class="box violeta" onclick="go(15)" style="cursor:pointer"><div class="n">4</div><h4>Ecuaciones</h4><p style="font-size:12.5px;margin-top:4px">Hallar lo desconocido</p></div>
+      <div class="box rojo" onclick="go(19)" style="cursor:pointer"><div class="n">5</div><h4>Media, mediana, moda</h4><p style="font-size:12.5px;margin-top:4px">Resumir datos</p></div>
+      <div class="box" onclick="go(24)" style="cursor:pointer"><div class="n">6</div><h4>Gráficos</h4><p style="font-size:12.5px;margin-top:4px">Comunicar datos</p></div>
+    </div>
+    <div class="g2" style="margin-top:22px">
+      <div class="alert a-info">
+        <span class="i">🔗</span>
+        <div><b>La idea que une todo.</b> Un porcentaje es una razón con denominador 100. Una variación es un porcentaje del cambio. Una regla de tres es una igualdad entre dos razones. Una ecuación es esa igualdad con una incógnita. Y la media es una razón entre la suma y la cantidad de datos. <b>Todo es la misma idea aplicada a preguntas distintas.</b></div>
+      </div>
+      <div class="alert a-warn">
+        <span class="i">🎯</span>
+        <div><b>Enfoque del taller.</b> Cada bloque abre con el concepto, sigue con un simulador que puede manipular y cierra con el error típico que se comete en informes reales. Los errores importan tanto como los aciertos.</div>
+      </div>
+    </div>
+    <div class="g4" style="margin-top:20px">
+      <div class="kpi"><div class="num" data-c="6">0</div><div class="lbl">Bloques</div></div>
+      <div class="kpi" style="background:linear-gradient(135deg,var(--verde),#0f766e)"><div class="num" data-c="13">0</div><div class="lbl">Simuladores</div></div>
+      <div class="kpi" style="background:linear-gradient(135deg,var(--violeta),#5a189a)"><div class="num" data-c="8">0</div><div class="lbl">Errores típicos</div></div>
+      <div class="kpi" style="background:linear-gradient(135deg,#0f172a,#1e293b)"><div class="num" data-c="6">0</div><div class="lbl">Preguntas finales</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 SEPARADOR 01 ============ -->
+<section class="slide">
+  <div class="tema"><div>
+    <div class="big">01</div>
+    <h1>Porcentajes</h1>
+    <p class="lead" style="color:#dbe7f5;margin-top:12px">La parte, el todo y la proporción entre ambos</p>
+  </div></div>
+</section>
+
+<!-- ============ 4 CONCEPTO % ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">%</div><div><span class="sub">Bloque 1 · Concepto</span><h2>Un porcentaje es una razón sobre 100</h2></div></div>
+    <div class="g23">
+      <div>
+        <p class="lead">Decir <b>25 %</b> es decir <b>25 de cada 100</b>. Nada más. Por eso todo porcentaje puede escribirse como fracción y como decimal sin cambiar su significado.</p>
+        <div class="form" style="margin:16px 0">
+          25 % &nbsp;=&nbsp; <span class="frac"><span class="a">25</span><span class="b">100</span></span> &nbsp;=&nbsp; 0,25 &nbsp;=&nbsp; <span class="frac"><span class="a">1</span><span class="b">4</span></span>
+          <small>Cuatro escrituras, un solo valor</small>
+        </div>
+        <h3>Las tres preguntas del porcentaje</h3>
+        <p style="margin-bottom:10px">Todo problema de porcentajes es una de estas tres, según cuál sea el dato que falta:</p>
+        <div class="g3">
+          <div class="box"><div class="n">A</div><h4>Falta la parte</h4><p>«¿Cuánto es el 15 % de 480?»</p><div class="formd" style="margin-top:8px;font-size:15px">P = N × % ÷ 100</div></div>
+          <div class="box verde"><div class="n">B</div><h4>Falta el porcentaje</h4><p>«¿Qué porcentaje es 72 de 480?»</p><div class="formd" style="margin-top:8px;font-size:15px">% = P ÷ N × 100</div></div>
+          <div class="box oro"><div class="n">C</div><h4>Falta el total</h4><p>«Si 72 es el 15 %, ¿cuál es el total?»</p><div class="formd" style="margin-top:8px;font-size:15px">N = P × 100 ÷ %</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="alert a-err" style="margin-bottom:14px">
+          <span class="i">⚠️</span>
+          <div><b>El error de identificación.</b> Más del 80 % de los errores con porcentajes no son de cálculo: son de <b>no distinguir cuál de las tres preguntas se está haciendo</b>. Antes de operar, identifique qué dato falta.</div>
+        </div>
+        <div class="alert a-ok">
+          <span class="i">🔑</span>
+          <div><b>Regla de oro:</b> el porcentaje siempre se refiere a algo. «Aumentó 20 %» está incompleto: ¿20 % de qué? Sin la base, un porcentaje no significa nada.</div>
+        </div>
+        <div class="cita" style="margin-top:14px">En un informe, un porcentaje sin su base es una cifra decorativa. Con su base, es evidencia.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5 SIM PORCENTAJES ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🎛️</div><div><span class="sub">Bloque 1 · Simulador</span><h2>Calculadora de los tres casos</h2></div></div>
+    <div class="g2">
+      <div class="sim">
+        <h3>🧮 <span>Elija qué dato le falta</span></h3>
+        <span class="tag">Interactivo</span>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:12px">
+          <button class="btn3 act" id="pc-a" onclick="setPc('a')">A · Falta la parte</button>
+          <button class="btn3" id="pc-b" onclick="setPc('b')">B · Falta el %</button>
+          <button class="btn3" id="pc-c" onclick="setPc('c')">C · Falta el total</button>
+        </div>
+        <div id="pcPreg" style="color:#dbe7f5;font-size:16px;margin-top:14px;font-weight:600"></div>
+        <div class="g2" style="gap:11px;margin-top:6px">
+          <div class="ctrl"><label id="pcL1">Dato 1</label><input type="number" id="pcV1" value="15" oninput="calcPc()"></div>
+          <div class="ctrl"><label id="pcL2">Dato 2</label><input type="number" id="pcV2" value="480" oninput="calcPc()"></div>
+        </div>
+        <div class="formd" style="margin-top:13px" id="pcForm">—</div>
+        <div class="out"><div class="k" id="pcK">Resultado</div><div class="v" id="pcR" style="font-size:32px">—</div></div>
+        <div class="out"><div class="k">Cómo se lee</div><div class="v" id="pcTxt" style="font-size:15px;font-weight:600;color:#dbe7f5">—</div></div>
+      </div>
+      <div>
+        <div style="background:var(--claro);border-radius:20px;padding:18px;text-align:center">
+          <h3>Representación visual</h3>
+          <svg id="pcSvg" viewBox="0 0 300 170" style="width:100%;max-width:340px;margin:6px auto 0;display:block"></svg>
+          <div style="height:32px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin-top:12px">
+            <div id="pcBar" style="height:100%;width:15%;background:linear-gradient(90deg,var(--azul3),var(--verde));
+                 border-radius:99px;transition:width .35s;display:grid;place-items:center;color:#fff;font-weight:800;font-size:13.5px">15 %</div>
+          </div>
+        </div>
+        <div class="alert a-info" style="margin-top:14px">
+          <span class="i">🚔</span>
+          <div><b>Aplicación.</b> Caso A: «el 15 % de las 480 llamadas fueron falsas alarmas» → 72 llamadas. Caso B: «72 de 480 fueron falsas» → 15 %. Caso C: «72 llamadas son el 15 % del total» → 480 llamadas. <b>Mismo trío de números, tres preguntas distintas.</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6 SEPARADOR 02 ============ -->
+<section class="slide">
+  <div class="tema"><div>
+    <div class="big">02</div>
+    <h1>Variación porcentual</h1>
+    <p class="lead" style="color:#dbe7f5;margin-top:12px">Medir el cambio: el cálculo más usado y peor entendido de la gestión pública</p>
+  </div></div>
+</section>
+
+<!-- ============ 7 VARIACIÓN CONCEPTO ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">↗️</div><div><span class="sub">Bloque 2 · Concepto</span><h2>Absoluto y relativo no son lo mismo</h2></div></div>
+    <div class="g23">
+      <div>
+        <div class="form" style="margin-bottom:16px">
+          Variación % &nbsp;=&nbsp; <span class="frac"><span class="a">final − inicial</span><span class="b">inicial</span></span> &nbsp;×&nbsp; 100
+          <small>La base es siempre el valor inicial</small>
+        </div>
+        <div class="g2">
+          <div class="box"><div class="n">Δ</div><h4>Variación absoluta</h4><p>La resta simple: <b>final − inicial</b>. Se expresa en las mismas unidades del dato (casos, pesos, personas).</p><div class="chip">50 − 40 = 10 casos</div></div>
+          <div class="box oro"><div class="n">%</div><h4>Variación relativa</h4><p>La absoluta dividida entre la base, por 100. Se expresa en porcentaje y permite <b>comparar entre territorios de distinto tamaño</b>.</p><div class="chip o">10 ÷ 40 = 25 %</div></div>
+        </div>
+        <div class="alert a-err" style="margin-top:16px">
+          <span class="i">🚨</span>
+          <div><b>Por qué importa la distinción.</b> Un cuadrante que pasa de 40 a 50 hurtos y otro que pasa de 400 a 410 tienen <b>la misma variación absoluta</b> (10 casos), pero variaciones relativas muy distintas: 25 % contra 2,5 %. Reportar solo una de las dos distorsiona la lectura.</div>
+        </div>
+      </div>
+      <div>
+        <svg viewBox="0 0 300 250" style="width:100%;background:var(--claro);border-radius:18px;padding:8px">
+          <text x="150" y="20" text-anchor="middle" font-size="13" font-weight="800" fill="#0b2545" font-family="Segoe UI">Misma variación absoluta, distinto impacto</text>
+          <rect x="35" y="145" width="42" height="60" fill="#1d4e89" rx="4"/>
+          <rect x="83" y="130" width="42" height="75" fill="#e63946" rx="4"/>
+          <text x="56" y="140" text-anchor="middle" font-size="11" font-weight="700" fill="#1d4e89" font-family="Segoe UI">40</text>
+          <text x="104" y="125" text-anchor="middle" font-size="11" font-weight="700" fill="#e63946" font-family="Segoe UI">50</text>
+          <text x="80" y="222" text-anchor="middle" font-size="12" font-weight="800" fill="#0b2545" font-family="Segoe UI">Cuadrante A</text>
+          <text x="80" y="238" text-anchor="middle" font-size="14" font-weight="800" fill="#e63946" font-family="Segoe UI">+25 %</text>
+          <rect x="180" y="55" width="42" height="150" fill="#1d4e89" rx="4"/>
+          <rect x="228" y="51" width="42" height="154" fill="#e63946" rx="4"/>
+          <text x="201" y="49" text-anchor="middle" font-size="11" font-weight="700" fill="#1d4e89" font-family="Segoe UI">400</text>
+          <text x="249" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="#e63946" font-family="Segoe UI">410</text>
+          <text x="225" y="222" text-anchor="middle" font-size="12" font-weight="800" fill="#0b2545" font-family="Segoe UI">Cuadrante B</text>
+          <text x="225" y="238" text-anchor="middle" font-size="14" font-weight="800" fill="#1b998b" font-family="Segoe UI">+2,5 %</text>
+          <line x1="20" y1="205" x2="285" y2="205" stroke="#94a3b8" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8 SIM VARIACIÓN ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">📉</div><div><span class="sub">Bloque 2 · Simulador</span><h2>Calculadora de variación porcentual</h2></div></div>
+    <div class="g2">
+      <div class="sim">
+        <h3>🧮 <span>Compare dos periodos</span></h3>
+        <span class="tag">Interactivo</span>
+        <div class="g2" style="gap:11px;margin-top:12px">
+          <div class="ctrl"><label>Valor inicial</label><input type="number" id="vwIni" value="40" oninput="varW()"></div>
+          <div class="ctrl"><label>Valor final</label><input type="number" id="vwFin" value="50" oninput="varW()"></div>
+        </div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:11px">
+          <button class="btn3" onclick="setVar(40,50)">Hurtos 40→50</button>
+          <button class="btn3" onclick="setVar(250,200)">Lesiones 250→200</button>
+          <button class="btn3" onclick="setVar(1200,1500)">Llamadas 1200→1500</button>
+        </div>
+        <div class="out"><div class="k">Variación absoluta</div><div class="v" id="vwAbs">—</div></div>
+        <div class="out"><div class="k">Variación porcentual</div><div class="v" id="vwPct" style="font-size:34px">—</div></div>
+        <div class="out"><div class="k">Interpretación</div><div class="v" id="vwTxt" style="font-size:14.5px;font-weight:600;color:#dbe7f5">—</div></div>
+      </div>
+      <div>
+        <svg id="vwSvg" viewBox="0 0 320 220" style="width:100%;background:var(--claro);border-radius:18px;padding:8px"></svg>
+        <div class="alert a-warn" style="margin-top:14px">
+          <span class="i">🔄</span>
+          <div><b>La asimetría.</b> Si un indicador sube 50 % y luego baja 50 %, <b>no vuelve al punto de partida</b>: 100 → 150 → 75. El segundo porcentaje se calcula sobre una base distinta. Lo verá en el siguiente simulador.</div>
+        </div>
+        <div class="alert a-info" style="margin-top:12px">
+          <span class="i">➗</span>
+          <div><b>Si el valor inicial es cero</b>, la variación porcentual <b>no existe</b>: no se puede dividir entre cero. En ese caso se reporta la variación absoluta y se aclara que no hay base de comparación.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9 SIM SUCESIVAS ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🔗</div><div><span class="sub">Bloque 2 · Simulador</span><h2>Variaciones sucesivas: no se suman</h2></div></div>
+    <div class="g2">
+      <div class="sim v">
+        <h3>⛓️ <span>Encadene dos variaciones</span></h3>
+        <span class="tag">Interactivo</span>
+        <div class="ctrl" style="margin-top:12px"><label>Valor de partida <b id="suBaseV">100</b></label>
+          <input type="range" id="suBase" min="10" max="500" step="10" value="100" oninput="sucesivas()"></div>
+        <div class="ctrl"><label>Primera variación <b id="su1V">+50 %</b></label>
+          <input type="range" id="su1" min="-80" max="80" step="5" value="50" oninput="sucesivas()"></div>
+        <div class="ctrl"><label>Segunda variación <b id="su2V">−50 %</b></label>
+          <input type="range" id="su2" min="-80" max="80" step="5" value="-50" oninput="sucesivas()"></div>
+        <div class="out"><div class="k">Recorrido</div><div class="v" id="suRuta" style="font-size:19px">—</div></div>
+        <div class="out"><div class="k">Suma ingenua de porcentajes</div><div class="v" id="suIng" style="font-size:20px;color:#ff8fa3">—</div></div>
+        <div class="out"><div class="k">Variación real acumulada</div><div class="v" id="suReal" style="font-size:30px">—</div></div>
+      </div>
+      <div>
+        <svg id="suSvg" viewBox="0 0 320 200" style="width:100%;background:var(--claro);border-radius:18px;padding:8px"></svg>
+        <div class="form" style="margin-top:14px;font-size:17px">
+          Factor total = (1 + v₁) × (1 + v₂)
+          <small>Los porcentajes se multiplican, no se suman</small>
+        </div>
+        <div class="alert a-err" style="margin-top:14px">
+          <span class="i">💥</span>
+          <div><b>Caso clásico.</b> Un descuento del 30 % seguido de otro del 20 % <b>no es un 50 %</b>. Es 0,70 × 0,80 = 0,56, es decir, un descuento total del <b>44 %</b>. Quien sume los porcentajes se equivoca en 6 puntos.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 PUNTOS PORCENTUALES ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">⚖️</div><div><span class="sub">Bloque 2 · Distinción crítica</span><h2>Puntos porcentuales ≠ porcentaje</h2></div></div>
+    <div class="g23">
+      <div>
+        <p class="lead" style="margin-bottom:14px">Cuando el dato que cambia <b>ya es un porcentaje</b>, hay dos formas legítimas de expresar el cambio, y confundirlas es un error técnico grave en informes de gestión.</p>
+        <div class="sim g">
+          <h3>📐 <span>Vea la diferencia</span></h3>
+          <span class="tag">Interactivo</span>
+          <div class="g2" style="gap:11px;margin-top:12px">
+            <div class="ctrl"><label>Tasa inicial (%) <b id="ppAV">20</b></label>
+              <input type="range" id="ppA" min="1" max="90" value="20" oninput="puntosPct()"></div>
+            <div class="ctrl"><label>Tasa final (%) <b id="ppBV">25</b></label>
+              <input type="range" id="ppB" min="1" max="90" value="25" oninput="puntosPct()"></div>
+          </div>
+          <div class="g2" style="gap:11px">
+            <div class="out"><div class="k">Cambio en puntos porcentuales</div><div class="v" id="ppPts" style="font-size:27px">—</div></div>
+            <div class="out"><div class="k">Cambio porcentual relativo</div><div class="v" id="ppRel" style="font-size:27px">—</div></div>
+          </div>
+          <div class="out"><div class="k">Redacción correcta</div><div class="v" id="ppTxt" style="font-size:14.5px;font-weight:600;color:#d7f5f0">—</div></div>
+        </div>
+      </div>
+      <div>
+        <svg id="ppSvg" viewBox="0 0 260 230" style="width:100%;background:var(--claro);border-radius:18px;padding:8px"></svg>
+        <div class="alert a-warn" style="margin-top:14px">
+          <span class="i">📝</span>
+          <div><b>Cómo redactarlo.</b> Si la tasa de esclarecimiento pasa de 20 % a 25 %, escriba: <b>«aumentó 5 puntos porcentuales (un incremento relativo del 25 %)»</b>. Decir solo «aumentó 25 %» es ambiguo y decir «aumentó 5 %» es incorrecto.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11 SEPARADOR 03 ============ -->
+<section class="slide">
+  <div class="tema"><div>
+    <div class="big">03</div>
+    <h1>Regla de tres</h1>
+    <p class="lead" style="color:#dbe7f5;margin-top:12px">Proporciones directas, inversas y compuestas</p>
+  </div></div>
+</section>
+
+<!-- ============ 12 DIRECTA VS INVERSA ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🧭</div><div><span class="sub">Bloque 3 · Concepto</span><h2>Primero decida el tipo, después calcule</h2></div></div>
+    <p class="lead" style="margin-bottom:16px">La regla de tres es una igualdad entre dos razones. El único paso que exige criterio —y donde se comete el error— es decidir <span class="hl">si la proporción es directa o inversa</span>.</p>
+    <div class="g2">
+      <div class="box" style="border:2px solid var(--azul3)">
+        <div class="n" style="width:50px;height:50px;font-size:22px">↗️</div>
+        <h3 style="font-size:21px">Proporción DIRECTA</h3>
+        <p>Si una magnitud aumenta, la otra <b>también aumenta</b> en la misma proporción.</p>
+        <div class="formd" style="margin:12px 0;font-size:17px">A → B<br>C → X<br><span style="color:#fff;font-size:20px">X = (B × C) ÷ A</span></div>
+        <p style="font-size:14px"><b>Se multiplica en cruz.</b></p>
+        <div class="chips">
+          <span class="chip">Más patrullas → más cobertura</span>
+          <span class="chip">Más horas → más costo</span>
+          <span class="chip">Más litros → más kilómetros</span>
+        </div>
+      </div>
+      <div class="box rojo" style="border:2px solid var(--rojo)">
+        <div class="n" style="width:50px;height:50px;font-size:22px">↘️</div>
+        <h3 style="font-size:21px">Proporción INVERSA</h3>
+        <p>Si una magnitud aumenta, la otra <b>disminuye</b> proporcionalmente.</p>
+        <div class="formd" style="margin:12px 0;font-size:17px">A → B<br>C → X<br><span style="color:#fff;font-size:20px">X = (A × B) ÷ C</span></div>
+        <p style="font-size:14px"><b>Se multiplica en línea.</b></p>
+        <div class="chips">
+          <span class="chip r">Más unidades → menos tiempo</span>
+          <span class="chip r">Más velocidad → menos duración</span>
+          <span class="chip r">Más personal → menos carga individual</span>
+        </div>
+      </div>
+    </div>
+    <div class="alert a-ok" style="margin-top:18px">
+      <span class="i">🤔</span>
+      <div><b>La pregunta que evita el error.</b> Antes de escribir nada, pregúntese en voz alta: <b>«si esto sube, ¿lo otro sube o baja?»</b>. Si sube, es directa. Si baja, es inversa. Ninguna calculadora hace esta pregunta por usted, y es donde se pierde la mayoría de los ejercicios.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 13 SIM DIRECTA ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">📏</div><div><span class="sub">Bloque 3 · Simulador</span><h2>Regla de tres directa</h2></div></div>
+    <div class="g23">
+      <div class="sim">
+        <h3>➡️ <span>Proporción directa</span></h3>
+        <span class="tag">Interactivo</span>
+        <p style="color:#cfe0f2;font-size:15px;margin-top:11px">Si <b style="color:#fff"><span id="rdA">8</span></b> patrullas cubren <b style="color:#fff"><span id="rdB">24</span></b> cuadrantes, ¿cuántos cubren <b style="color:var(--oro2)"><span id="rdC">14</span></b> patrullas?</p>
+        <div class="g3" style="gap:10px;margin-top:12px">
+          <div class="ctrl"><label>A (patrullas)</label><input type="number" id="rdVA" value="8" oninput="rdCalc()"></div>
+          <div class="ctrl"><label>B (cuadrantes)</label><input type="number" id="rdVB" value="24" oninput="rdCalc()"></div>
+          <div class="ctrl"><label>C (patrullas)</label><input type="number" id="rdVC" value="14" oninput="rdCalc()"></div>
+        </div>
+        <div class="formd" style="margin-top:13px;font-size:18px" id="rdProp">—</div>
+        <div class="out"><div class="k">Resultado X</div><div class="v" id="rdR" style="font-size:32px">—</div></div>
+        <div class="out"><div class="k">Constante de proporcionalidad</div><div class="v" id="rdK" style="font-size:16px;font-weight:600;color:var(--oro2)">—</div></div>
+      </div>
+      <div>
+        <svg id="rdSvg" viewBox="0 0 280 210" style="width:100%;background:var(--claro);border-radius:18px;padding:8px"></svg>
+        <div class="alert a-info" style="margin-top:14px">
+          <span class="i">📈</span>
+          <div><b>Toda proporción directa es una función lineal</b> que pasa por el origen: <code>y = kx</code>. La constante <b>k</b> es la pendiente. Por eso la gráfica es siempre una recta que sale del punto (0,0).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 14 SIM INVERSA ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🔁</div><div><span class="sub">Bloque 3 · Simulador</span><h2>Regla de tres inversa</h2></div></div>
+    <div class="g23">
+      <div class="sim r">
+        <h3>⬅️ <span>Proporción inversa</span></h3>
+        <span class="tag">Interactivo</span>
+        <p style="color:#ffe0e3;font-size:15px;margin-top:11px">Si <b style="color:#fff"><span id="riA">6</span></b> unidades tardan <b style="color:#fff"><span id="riB">12</span></b> horas en un operativo, ¿cuánto tardarían <b style="color:var(--oro2)"><span id="riC">9</span></b> unidades?</p>
+        <div class="g3" style="gap:10px;margin-top:12px">
+          <div class="ctrl"><label>A (unidades)</label><input type="number" id="riVA" value="6" oninput="riCalc()"></div>
+          <div class="ctrl"><label>B (horas)</label><input type="number" id="riVB" value="12" oninput="riCalc()"></div>
+          <div class="ctrl"><label>C (unidades)</label><input type="number" id="riVC" value="9" oninput="riCalc()"></div>
+        </div>
+        <div class="formd" style="margin-top:13px;font-size:18px" id="riProp">—</div>
+        <div class="out"><div class="k">Resultado X (horas)</div><div class="v" id="riR" style="font-size:32px">—</div></div>
+        <div class="out"><div class="k">Trabajo total constante</div><div class="v" id="riK" style="font-size:16px;font-weight:600;color:var(--oro2)">—</div></div>
+      </div>
+      <div>
+        <svg id="riSvg" viewBox="0 0 280 210" style="width:100%;background:var(--claro);border-radius:18px;padding:8px"></svg>
+        <div class="alert a-warn" style="margin-top:14px">
+          <span class="i">⚠️</span>
+          <div><b>Cuidado con el supuesto.</b> La proporción inversa asume que <b>todas las unidades rinden igual y el trabajo es divisible</b>. En la realidad operativa esto tiene límites: nueve unidades en un espacio reducido pueden estorbarse. <b>El modelo orienta; no sustituye el criterio.</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 15 SEPARADOR 04 ============ -->
+<section class="slide">
+  <div class="tema"><div>
+    <div class="big">04</div>
+    <h1>Ecuaciones</h1>
+    <p class="lead" style="color:#dbe7f5;margin-top:12px">Encontrar lo desconocido manteniendo el equilibrio</p>
+  </div></div>
+</section>
+
+<!-- ============ 16 LA BALANZA ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">⚖️</div><div><span class="sub">Bloque 4 · Concepto</span><h2>La ecuación es una balanza</h2></div></div>
+    <div class="g23">
+      <div>
+        <p class="lead">Una ecuación afirma que dos expresiones <b>valen lo mismo</b>. El signo igual no es «da como resultado»: es <b>equilibrio</b>. Resolver es aislar la incógnita sin romper ese equilibrio.</p>
+        <div class="form" style="margin:16px 0">
+          Lo que se hace a un lado,<br>se hace al otro
+          <small>Único principio de la resolución</small>
+        </div>
+        <div class="g2">
+          <div class="box"><div class="n">➕</div><h4>Sumar o restar</h4><p>Si resto 5 a la izquierda, resto 5 a la derecha. La balanza sigue equilibrada.</p></div>
+          <div class="box verde"><div class="n">✖️</div><h4>Multiplicar o dividir</h4><p>Si divido entre 3 a la izquierda, divido entre 3 a la derecha. Salvo por cero: eso está prohibido.</p></div>
+        </div>
+        <div class="alert a-info" style="margin-top:16px">
+          <span class="i">🎯</span>
+          <div><b>La estrategia siempre es la misma:</b> deshacer las operaciones que acompañan a la incógnita, <b>en orden inverso</b> al que se aplicaron. Primero se quitan las sumas y restas, después las multiplicaciones y divisiones.</div>
+        </div>
+      </div>
+      <div>
+        <svg viewBox="0 0 280 230" style="width:100%;background:var(--claro);border-radius:18px;padding:8px">
+          <line x1="140" y1="60" x2="140" y2="190" stroke="#64748b" stroke-width="7" stroke-linecap="round"/>
+          <polygon points="140,190 105,215 175,215" fill="#64748b"/>
+          <line x1="45" y1="60" x2="235" y2="60" stroke="#1d4e89" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="140" cy="60" r="10" fill="#e0a80d" stroke="#fff" stroke-width="3"/>
+          <line x1="70" y1="60" x2="70" y2="95" stroke="#94a3b8" stroke-width="2.5"/>
+          <line x1="210" y1="60" x2="210" y2="95" stroke="#94a3b8" stroke-width="2.5"/>
+          <rect x="30" y="95" width="80" height="46" rx="9" fill="#1d4e89" opacity=".85"/>
+          <text x="70" y="125" text-anchor="middle" font-size="19" font-weight="800" fill="#fff" font-family="Segoe UI">3x + 5</text>
+          <rect x="170" y="95" width="80" height="46" rx="9" fill="#1b998b" opacity=".85"/>
+          <text x="210" y="125" text-anchor="middle" font-size="19" font-weight="800" fill="#fff" font-family="Segoe UI">20</text>
+          <text x="140" y="35" text-anchor="middle" font-size="15" font-weight="800" fill="#0b2545" font-family="Segoe UI">EQUILIBRIO</text>
+        </svg>
+        <div class="cita" style="margin-top:14px">Si la balanza está equilibrada y quito peso de un solo lado, deja de estarlo. Esa es toda la teoría de las ecuaciones.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 17 SIM ECUACIÓN ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🪜</div><div><span class="sub">Bloque 4 · Simulador</span><h2>Resolver paso a paso</h2></div></div>
+    <div class="g23">
+      <div class="sim">
+        <h3>▶️ <span>Arme su ecuación y resuélvala</span></h3>
+        <span class="tag">Interactivo</span>
+        <div class="g3" style="gap:10px;margin-top:12px">
+          <div class="ctrl"><label>a <b id="ecAV">3</b></label><input type="range" id="ecA" min="-9" max="9" value="3" oninput="ecuInit()"></div>
+          <div class="ctrl"><label>b <b id="ecBV">5</b></label><input type="range" id="ecB" min="-20" max="20" value="5" oninput="ecuInit()"></div>
+          <div class="ctrl"><label>c <b id="ecCV">20</b></label><input type="range" id="ecC" min="-40" max="40" value="20" oninput="ecuInit()"></div>
+        </div>
+        <div class="formd" style="margin-top:13px;font-size:25px" id="ecEq">3x + 5 = 20</div>
+        <div id="ecPasos"></div>
+        <div style="display:flex;gap:9px;margin-top:13px">
+          <button class="btn2" id="ecBtn" onclick="ecuPaso()">Siguiente paso ▶</button>
+          <button class="btn3" onclick="ecuInit()">↺ Reiniciar</button>
+        </div>
+      </div>
+      <div>
+        <svg id="ecSvg" viewBox="0 0 280 200" style="width:100%;background:var(--claro);border-radius:18px;padding:8px"></svg>
+        <div class="alert a-ok" style="margin-top:14px">
+          <span class="i">✅</span>
+          <div><b>Verificar siempre.</b> Reemplace la solución en la ecuación original. Si los dos lados dan el mismo número, la respuesta es correcta. Este paso toma diez segundos y detecta casi todos los errores.</div>
+        </div>
+        <div class="out" style="background:#eef4fb;border-color:#cfe0f2;margin-top:12px">
+          <div class="k" style="color:var(--gris)">Comprobación</div>
+          <div class="v" id="ecVerif" style="font-size:16px;color:var(--azul);font-weight:700">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 18 DESPEJE ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🔧</div><div><span class="sub">Bloque 4 · Aplicación</span><h2>Despejar fórmulas: la misma técnica</h2></div></div>
+    <div class="g23">
+      <div>
+        <p class="lead" style="margin-bottom:14px">Despejar una fórmula es resolver una ecuación donde las «letras» son datos conocidos. La técnica es idéntica.</p>
+        <table class="tb">
+          <tr><th>Fórmula</th><th>Se despeja</th><th>Resultado</th></tr>
+          <tr><td class="f">d = v · t</td><td>la velocidad</td><td class="f">v = d ÷ t</td></tr>
+          <tr><td class="f">A = b · h</td><td>la altura</td><td class="f">h = A ÷ b</td></tr>
+          <tr><td class="f">P = 2(b + h)</td><td>la base</td><td class="f">b = P ÷ 2 − h</td></tr>
+          <tr><td class="f">y = mx + b</td><td>la pendiente</td><td class="f">m = (y − b) ÷ x</td></tr>
+          <tr><td class="f">% = P ÷ N × 100</td><td>el total</td><td class="f">N = P × 100 ÷ %</td></tr>
+        </table>
+        <div class="alert a-info" style="margin-top:16px">
+          <span class="i">🔗</span>
+          <div><b>Note el cierre del círculo.</b> La última fila es exactamente el <b>caso C</b> de porcentajes del bloque 1. Lo que allí presentamos como «una fórmula distinta» es simplemente la misma fórmula despejada. <b>No son tres fórmulas: es una sola.</b></div>
+        </div>
+      </div>
+      <div>
+        <div class="sim g">
+          <h3>🚔 <span>Caso aplicado</span></h3>
+          <span class="tag">Interactivo</span>
+          <p style="color:#d7f5f0;font-size:14.5px;margin-top:10px">Un operativo tiene un costo fijo de $800.000 más $45.000 por unidad. <b style="color:#fff">¿Cuántas unidades caben en el presupuesto?</b></p>
+          <div class="ctrl" style="margin-top:12px"><label>Presupuesto disponible <b id="prV">$2.150.000</b></label>
+            <input type="range" id="prS" min="800000" max="5000000" step="50000" value="2150000" oninput="presu()"></div>
+          <div class="formd" style="margin-top:12px;font-size:16px" id="prEq">—</div>
+          <div class="out"><div class="k">Unidades posibles (exacto)</div><div class="v" id="prExac" style="font-size:24px">—</div></div>
+          <div class="out"><div class="k">Decisión operativa</div><div class="v" id="prReal" style="font-size:16px;font-weight:600;color:#d7f5f0">—</div></div>
+        </div>
+        <div class="alert a-warn" style="margin-top:14px">
+          <span class="i">🎯</span>
+          <div><b>Redondear hacia abajo.</b> Si el cálculo da 30,3 unidades, la respuesta operativa es <b>30</b>: no existen fracciones de unidad y el presupuesto no alcanza para la 31. Aquí el contexto manda sobre la aritmética.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 19 SEPARADOR 05 ============ -->
+<section class="slide">
+  <div class="tema"><div>
+    <div class="big">05</div>
+    <h1>Media, mediana y moda</h1>
+    <p class="lead" style="color:#dbe7f5;margin-top:12px">Tres formas de responder «¿cuál es el valor típico?» — y no siempre coinciden</p>
+  </div></div>
+</section>
+
+<!-- ============ 20 LAS TRES MEDIDAS ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">📊</div><div><span class="sub">Bloque 5 · Concepto</span><h2>Las tres medidas de tendencia central</h2></div></div>
+    <div class="g3">
+      <div class="box" style="border-top:5px solid var(--azul3)">
+        <div class="n">x̄</div>
+        <h3 style="font-size:20px">Media aritmética</h3>
+        <p>La suma de todos los datos dividida entre la cantidad de datos. Es el «centro de gravedad».</p>
+        <div class="formd" style="margin:11px 0;font-size:16px">x̄ = Σx ÷ n</div>
+        <div class="chip">Usa todos los valores</div>
+        <div class="chip r" style="margin-top:6px">Muy sensible a valores extremos</div>
+      </div>
+      <div class="box verde" style="border-top:5px solid var(--verde)">
+        <div class="n">Me</div>
+        <h3 style="font-size:20px">Mediana</h3>
+        <p>El valor que queda <b>justo en el centro</b> al ordenar los datos. Si hay cantidad par, es el promedio de los dos centrales.</p>
+        <div class="formd" style="margin:11px 0;font-size:16px">Posición = (n + 1) ÷ 2</div>
+        <div class="chip v">Resistente a valores extremos</div>
+        <div class="chip" style="margin-top:6px">Exige ordenar los datos</div>
+      </div>
+      <div class="box oro" style="border-top:5px solid var(--oro)">
+        <div class="n">Mo</div>
+        <h3 style="font-size:20px">Moda</h3>
+        <p>El valor que <b>más se repite</b>. Puede no existir, o haber varias.</p>
+        <div class="formd" style="margin:11px 0;font-size:16px">Mayor frecuencia</div>
+        <div class="chip o">Única que sirve para datos cualitativos</div>
+        <div class="chip" style="margin-top:6px">Puede ser poco representativa</div>
+      </div>
+    </div>
+    <div class="g2" style="margin-top:20px">
+      <div class="alert a-err">
+        <span class="i">💰</span>
+        <div><b>El ejemplo que lo explica todo.</b> En una oficina, nueve personas ganan $2.000.000 y el jefe gana $30.000.000. La <b>media</b> es $4.800.000 —una cifra que <b>nadie</b> gana—. La <b>mediana</b> es $2.000.000, que sí describe a la persona típica. Reportar la media aquí sería engañoso.</div>
+      </div>
+      <div class="alert a-ok">
+        <span class="i">🧭</span>
+        <div><b>Criterio práctico.</b> Si los datos son simétricos y sin extremos, use la <b>media</b>. Si hay valores atípicos o la distribución es asimétrica (ingresos, tiempos de respuesta), use la <b>mediana</b>. Para categorías (tipo de delito, color de vehículo), solo cabe la <b>moda</b>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 21 SIM MEDIDAS ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🧮</div><div><span class="sub">Bloque 5 · Simulador</span><h2>Calculadora de tendencia central</h2></div></div>
+    <div class="g23">
+      <div>
+        <div class="sim">
+          <h3>🔢 <span>Escriba sus datos separados por comas</span></h3>
+          <span class="tag">Interactivo</span>
+          <div class="ctrl" style="margin-top:12px">
+            <label>Conjunto de datos</label>
+            <input type="text" id="mmDatos" value="3, 5, 7, 7, 8, 9, 12, 7, 15, 4" oninput="calcMM()">
+          </div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:10px">
+            <button class="btn3" onclick="setMM('3, 5, 7, 7, 8, 9, 12, 7, 15, 4')">Datos simétricos</button>
+            <button class="btn3" onclick="setMM('2, 2, 2, 2, 2, 2, 2, 2, 2, 30')">Con atípico</button>
+            <button class="btn3" onclick="setMM('4, 8, 15, 16, 23, 42')">Sin moda</button>
+          </div>
+          <div class="g3" style="gap:11px;margin-top:6px">
+            <div class="out"><div class="k">Media</div><div class="v" id="mmMedia" style="font-size:26px">—</div></div>
+            <div class="out"><div class="k">Mediana</div><div class="v" id="mmMediana" style="font-size:26px">—</div></div>
+            <div class="out"><div class="k">Moda</div><div class="v" id="mmModa" style="font-size:26px">—</div></div>
+          </div>
+          <div class="g3" style="gap:11px">
+            <div class="out"><div class="k">n</div><div class="v" id="mmN" style="font-size:18px">—</div></div>
+            <div class="out"><div class="k">Rango</div><div class="v" id="mmRango" style="font-size:18px">—</div></div>
+            <div class="out"><div class="k">Suma</div><div class="v" id="mmSuma" style="font-size:18px">—</div></div>
+          </div>
+          <div class="out"><div class="k">Datos ordenados</div><div class="v" id="mmOrd" style="font-size:15px;font-weight:600;color:#dbe7f5">—</div></div>
+        </div>
+      </div>
+      <div>
+        <svg id="mmSvg" viewBox="0 0 300 260" style="width:100%;background:var(--claro);border-radius:18px;padding:8px"></svg>
+        <div class="alert a-info" style="margin-top:12px">
+          <span class="i">👀</span>
+          <div><b>Observe el gráfico.</b> Cada punto es un dato. Las líneas marcan dónde cae cada medida. Cuando los datos son simétricos, las tres casi coinciden. <b>Pruebe el botón «Con atípico» y vea cómo la media se dispara mientras la mediana no se mueve.</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 22 SIM ATÍPICO ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🎯</div><div><span class="sub">Bloque 5 · Simulador</span><h2>El efecto de un solo valor atípico</h2></div></div>
+    <div class="g23">
+      <div class="sim v">
+        <h3>⚡ <span>Mueva el último dato y observe</span></h3>
+        <span class="tag">Interactivo</span>
+        <p style="color:#e9dcf7;font-size:14.5px;margin-top:10px">Nueve tiempos de respuesta de <b style="color:#fff">8 minutos</b> cada uno, y un décimo caso que usted controla.</p>
+        <div class="ctrl" style="margin-top:14px">
+          <label>Décimo tiempo de respuesta <b id="atV">8 min</b></label>
+          <input type="range" id="atS" min="1" max="120" value="8" oninput="atipico()">
+        </div>
+        <div class="g2" style="gap:11px;margin-top:6px">
+          <div class="out"><div class="k">Media</div><div class="v" id="atMedia" style="font-size:30px">—</div></div>
+          <div class="out"><div class="k">Mediana</div><div class="v" id="atMediana" style="font-size:30px">—</div></div>
+        </div>
+        <div class="out"><div class="k">Qué está pasando</div><div class="v" id="atTxt" style="font-size:14.5px;font-weight:600;color:#f3e8ff">—</div></div>
+      </div>
+      <div>
+        <svg id="atSvg" viewBox="0 0 300 200" style="width:100%;background:var(--claro);border-radius:18px;padding:8px"></svg>
+        <div class="alert a-err" style="margin-top:14px">
+          <span class="i">🚨</span>
+          <div><b>Por qué importa en gestión policial.</b> Si un solo incidente excepcional dispara el tiempo medio de respuesta, reportar la media hace ver mal a toda la unidad. La mediana describe mejor el desempeño habitual. <b>Lo correcto es reportar ambas y explicar la diferencia.</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 23 CUÁNDO USAR CADA UNA ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🧭</div><div><span class="sub">Bloque 5 · Criterio</span><h2>Tabla de decisión</h2></div></div>
+    <table class="tb">
+      <tr><th>Situación</th><th>Medida recomendada</th><th>Por qué</th></tr>
+      <tr><td>Edades de un grupo homogéneo</td><td><b>Media</b></td><td>Datos simétricos, sin extremos; aprovecha toda la información.</td></tr>
+      <tr><td>Ingresos o salarios</td><td><b>Mediana</b></td><td>Distribución muy asimétrica: unos pocos valores altos inflan la media.</td></tr>
+      <tr><td>Tiempos de respuesta a emergencias</td><td><b>Mediana</b> (y reportar la media)</td><td>Casos excepcionales muy largos distorsionan el promedio.</td></tr>
+      <tr><td>Tipo de delito más frecuente</td><td><b>Moda</b></td><td>Es un dato cualitativo: no se puede sumar ni ordenar.</td></tr>
+      <tr><td>Calificaciones de un curso</td><td><b>Media</b></td><td>Escala acotada, sin valores extremos posibles.</td></tr>
+      <tr><td>Precio de vivienda en una zona</td><td><b>Mediana</b></td><td>Unas pocas propiedades de lujo desplazan la media hacia arriba.</td></tr>
+      <tr><td>Talla de uniforme a pedir</td><td><b>Moda</b></td><td>Interesa la más solicitada, no un promedio que quizá no exista.</td></tr>
+    </table>
+    <div class="g2" style="margin-top:18px">
+      <div class="alert a-ok">
+        <span class="i">📋</span>
+        <div><b>Buena práctica en informes.</b> Cuando media y mediana difieren de forma notoria, <b>repórtelas juntas</b>. Esa diferencia es información: revela asimetría en los datos y suele ser el hallazgo más interesante.</div>
+      </div>
+      <div class="alert a-warn">
+        <span class="i">📐</span>
+        <div><b>El rango como complemento.</b> Ninguna medida de centro dice nada sobre la <b>dispersión</b>. Dos conjuntos con la misma media pueden ser muy distintos. El rango (máximo − mínimo) es la forma más simple de mostrarlo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 24 SEPARADOR 06 ============ -->
+<section class="slide">
+  <div class="tema"><div>
+    <div class="big">06</div>
+    <h1>Gráficos estadísticos</h1>
+    <p class="lead" style="color:#dbe7f5;margin-top:12px">Comunicar datos con claridad — y detectar cuándo alguien los distorsiona</p>
+  </div></div>
+</section>
+
+<!-- ============ 25 QUÉ GRÁFICO ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">📊</div><div><span class="sub">Bloque 6 · Criterio</span><h2>Cada gráfico responde una pregunta distinta</h2></div></div>
+    <div class="g4">
+      <div class="box" style="text-align:center">
+        <svg viewBox="0 0 120 80" style="width:100%;max-width:130px;margin:0 auto">
+          <rect x="15" y="40" width="18" height="32" fill="#1d4e89" rx="3"/>
+          <rect x="38" y="22" width="18" height="50" fill="#1d4e89" rx="3"/>
+          <rect x="61" y="50" width="18" height="22" fill="#1d4e89" rx="3"/>
+          <rect x="84" y="32" width="18" height="40" fill="#1d4e89" rx="3"/>
+          <line x1="10" y1="72" x2="110" y2="72" stroke="#94a3b8" stroke-width="2"/>
+        </svg>
+        <h4 style="margin-top:7px">Barras</h4>
+        <p style="font-size:13.5px">«¿Cuál es mayor?» Compara categorías independientes.</p>
+        <div class="chip">Delitos por cuadrante</div>
+      </div>
+      <div class="box verde" style="text-align:center">
+        <svg viewBox="0 0 120 80" style="width:100%;max-width:130px;margin:0 auto">
+          <polyline points="15,60 38,42 61,50 84,25 105,18" fill="none" stroke="#1b998b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="15" cy="60" r="3.5" fill="#1b998b"/><circle cx="38" cy="42" r="3.5" fill="#1b998b"/>
+          <circle cx="61" cy="50" r="3.5" fill="#1b998b"/><circle cx="84" cy="25" r="3.5" fill="#1b998b"/>
+          <circle cx="105" cy="18" r="3.5" fill="#1b998b"/>
+          <line x1="10" y1="72" x2="110" y2="72" stroke="#94a3b8" stroke-width="2"/>
+        </svg>
+        <h4 style="margin-top:7px">Líneas</h4>
+        <p style="font-size:13.5px">«¿Cómo evoluciona?» Muestra tendencias en el tiempo.</p>
+        <div class="chip v">Hurtos mes a mes</div>
+      </div>
+      <div class="box oro" style="text-align:center">
+        <svg viewBox="0 0 120 80" style="width:100%;max-width:130px;margin:0 auto">
+          <path d="M60 40 L60 8 A32 32 0 0 1 88 56 Z" fill="#e0a80d"/>
+          <path d="M60 40 L88 56 A32 32 0 0 1 32 56 Z" fill="#7b2cbf"/>
+          <path d="M60 40 L32 56 A32 32 0 0 1 60 8 Z" fill="#1b998b"/>
+        </svg>
+        <h4 style="margin-top:7px">Circular</h4>
+        <p style="font-size:13.5px">«¿Cómo se reparte el total?» Solo si las partes suman 100 %.</p>
+        <div class="chip o">Composición del presupuesto</div>
+      </div>
+      <div class="box violeta" style="text-align:center">
+        <svg viewBox="0 0 120 80" style="width:100%;max-width:130px;margin:0 auto">
+          <circle cx="25" cy="60" r="3.5" fill="#7b2cbf"/><circle cx="40" cy="50" r="3.5" fill="#7b2cbf"/>
+          <circle cx="52" cy="46" r="3.5" fill="#7b2cbf"/><circle cx="68" cy="35" r="3.5" fill="#7b2cbf"/>
+          <circle cx="80" cy="28" r="3.5" fill="#7b2cbf"/><circle cx="98" cy="18" r="3.5" fill="#7b2cbf"/>
+          <line x1="18" y1="66" x2="105" y2="14" stroke="#5a189a" stroke-width="2.5" stroke-dasharray="5 3"/>
+          <line x1="10" y1="72" x2="110" y2="72" stroke="#94a3b8" stroke-width="2"/>
+        </svg>
+        <h4 style="margin-top:7px">Dispersión</h4>
+        <p style="font-size:13.5px">«¿Se relacionan?» Muestra la asociación entre dos variables.</p>
+        <div class="chip" style="background:#f3e8ff;border-color:#d8b4fe;color:#5a189a">Patrullaje vs delitos</div>
+      </div>
+    </div>
+    <div class="alert a-err" style="margin-top:20px">
+      <span class="i">🚫</span>
+      <div><b>Errores frecuentes al elegir.</b> Usar un gráfico <b>circular con más de seis categorías</b> (se vuelve ilegible) o cuando las partes no suman un total. Usar <b>líneas para categorías</b> que no tienen orden temporal —conectar «hurto» con «lesiones» sugiere una continuidad que no existe—. Y usar <b>3D</b>: la perspectiva distorsiona los tamaños y nunca aporta información.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 26 SIM GRÁFICOS ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🎨</div><div><span class="sub">Bloque 6 · Simulador</span><h2>Los mismos datos, tres representaciones</h2></div></div>
+    <div class="g32">
+      <div class="sim">
+        <h3>📊 <span>Ajuste los datos y cambie el gráfico</span></h3>
+        <span class="tag">Interactivo</span>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:12px">
+          <button class="btn3 act" id="gf-bar" onclick="setGraf('bar')">▮ Barras</button>
+          <button class="btn3" id="gf-pie" onclick="setGraf('pie')">◕ Circular</button>
+          <button class="btn3" id="gf-lin" onclick="setGraf('lin')">📈 Líneas</button>
+        </div>
+        <div id="gfCtrls" style="margin-top:6px"></div>
+        <div class="out"><div class="k">Total</div><div class="v" id="gfTotal" style="font-size:24px">—</div></div>
+        <div class="out"><div class="k">Lectura recomendada</div><div class="v" id="gfTxt" style="font-size:14px;font-weight:600;color:#dbe7f5">—</div></div>
+      </div>
+      <div>
+        <svg id="gfSvg" viewBox="0 0 440 300" style="width:100%;background:var(--claro);border-radius:18px"></svg>
+        <div class="alert a-info" style="margin-top:12px">
+          <span class="i">🔍</span>
+          <div><b>Compare las tres vistas.</b> Las barras facilitan comparar magnitudes exactas. El circular muestra la proporción sobre el total pero dificulta comparar sectores parecidos. Las líneas sugieren evolución —<b>solo úselas si el eje horizontal es realmente temporal</b>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 27 SIM EJE TRUNCADO ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🕵️</div><div><span class="sub">Bloque 6 · Simulador</span><h2>Cómo mienten los gráficos honestos</h2></div></div>
+    <div class="g23">
+      <div>
+        <p class="lead" style="margin-bottom:14px">Los mismos datos, sin alterar un solo número, pueden contar historias opuestas según <span class="hl">dónde empiece el eje vertical</span>. Es la manipulación más común y la más difícil de detectar.</p>
+        <div class="sim r">
+          <h3>🎚️ <span>Mueva el inicio del eje</span></h3>
+          <span class="tag">Interactivo</span>
+          <div class="ctrl" style="margin-top:12px">
+            <label>El eje vertical empieza en <b id="trV">0</b></label>
+            <input type="range" id="trS" min="0" max="94" value="0" oninput="truncado()">
+          </div>
+          <div class="out"><div class="k">Datos reales (sin cambios)</div><div class="v" style="font-size:16px;font-weight:600;color:#ffe0e3">96 · 97 · 98 · 99 · 100</div></div>
+          <div class="out"><div class="k">Variación real total</div><div class="v" style="font-size:22px">+4,2 %</div></div>
+          <div class="out"><div class="k">Impresión visual que produce</div><div class="v" id="trTxt" style="font-size:14.5px;font-weight:600;color:#ffe0e3">—</div></div>
+        </div>
+      </div>
+      <div>
+        <svg id="trSvg" viewBox="0 0 320 250" style="width:100%;background:var(--claro);border-radius:18px;padding:8px"></svg>
+        <div class="alert a-err" style="margin-top:14px">
+          <span class="i">⚠️</span>
+          <div><b>Cómo defenderse.</b> Al leer cualquier gráfico de barras, <b>lo primero que debe mirar es dónde empieza el eje vertical</b>. Si no empieza en cero, las diferencias visuales están amplificadas. En gráficos de barras el eje <b>debe</b> empezar en cero; en gráficos de líneas puede no hacerlo, pero debe advertirse.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 28 AUTOEVALUACIÓN ============ -->
+<section class="slide">
+  <div class="card">
+    <div class="tit"><div class="ico">🏁</div><div><span class="sub">Cierre</span><h2>Autoevaluación</h2></div></div>
+    <div class="g2">
+      <div class="sim">
+        <h3>❓ <span id="qzNum">Pregunta 1 de 6</span></h3>
+        <p style="color:#dbe7f5;font-size:16.5px;margin-top:10px" id="qzTxt">—</p>
+        <div id="qzOpts"></div>
+        <div class="fb" id="qzFb"></div>
+        <div style="display:flex;gap:10px;margin-top:12px;align-items:center">
+          <button class="btn2" id="qzNext" onclick="qzSig()" disabled>Siguiente ▶</button>
+          <span style="color:#a9c2de;font-size:13.5px;font-weight:700">Aciertos: <b id="qzScore" style="color:var(--oro2)">0</b> / 6</span>
+        </div>
+      </div>
+      <div>
+        <h3>📌 Síntesis del taller</h3>
+        <div class="box" style="margin-bottom:9px;padding:14px"><h4>1 · Porcentajes</h4><p style="font-size:14px">Identifique primero cuál de los tres datos falta: la parte, el porcentaje o el total.</p></div>
+        <div class="box verde" style="margin-bottom:9px;padding:14px"><h4>2 · Variación porcentual</h4><p style="font-size:14px">Siempre sobre el valor inicial. Las variaciones sucesivas se multiplican, no se suman. Distinga puntos porcentuales de porcentaje.</p></div>
+        <div class="box oro" style="margin-bottom:9px;padding:14px"><h4>3 · Regla de tres</h4><p style="font-size:14px">Decida primero si es directa o inversa. Ese es el único paso que exige criterio.</p></div>
+        <div class="box violeta" style="margin-bottom:9px;padding:14px"><h4>4 · Ecuaciones</h4><p style="font-size:14px">Lo que se hace a un lado se hace al otro. Deshaga las operaciones en orden inverso y compruebe el resultado.</p></div>
+        <div class="box rojo" style="margin-bottom:9px;padding:14px"><h4>5 · Tendencia central</h4><p style="font-size:14px">La media se deja arrastrar por los valores extremos; la mediana no. Para categorías, solo la moda.</p></div>
+        <div class="box" style="padding:14px"><h4>6 · Gráficos</h4><p style="font-size:14px">Cada tipo responde una pregunta distinta. Revise siempre dónde empieza el eje vertical.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 29 CIERRE ============ -->
+<section class="slide">
+  <div class="portada" style="grid-template-columns:1fr">
+    <div style="text-align:center;color:#fff">
+      <div class="badge">✅ FIN DEL TALLER</div>
+      <h1 style="color:#fff">Los números no hablan solos<span>alguien los interpreta</span></h1>
+      <p class="lead" style="margin:16px auto 0;max-width:720px;color:#dbe7f5">
+        Un porcentaje mal calculado, una media que oculta un valor atípico o un eje truncado
+        pueden cambiar por completo la conclusión de un informe. Estas herramientas existen
+        para que <b style="color:#fff">esa interpretación sea correcta y verificable</b>.
+      </p>
+      <div class="g4" style="max-width:900px;margin:30px auto 0">
+        <div class="kpi"><div class="num">6</div><div class="lbl">Bloques</div></div>
+        <div class="kpi"><div class="num">13</div><div class="lbl">Simuladores</div></div>
+        <div class="kpi"><div class="num">8</div><div class="lbl">Errores típicos</div></div>
+        <div class="kpi"><div class="num">∞</div><div class="lbl">Aplicaciones</div></div>
+      </div>
+      <div class="docente" style="margin:30px auto 0;justify-content:center">
+        <div class="avatar"><img src="data:image/jpeg;base64,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" alt="Yenifer Fontalvo Marriaga"></div>
+        <div style="text-align:left">
+          <small>Docente</small>
+          <b>Yenifer Fontalvo Marriaga</b>
+          <i>Electiva I · Razonamiento Cuantitativo</i>
+        </div>
+      </div>
+      <p style="color:#8ea9c7;font-size:12px;margin-top:24px;letter-spacing:2px">
+        DIRECCIÓN DE EDUCACIÓN POLICIAL · ADMINISTRACIÓN POLICIAL VIRTUAL
+      </p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div id="nav">
+  <button class="btn" id="prev">◀ Anterior</button>
+  <div id="dots"></div>
+  <div style="display:flex;align-items:center;gap:11px">
+    <span id="cont">1 / 29</span>
+    <button class="btn" id="next">Siguiente ▶</button>
+  </div>
+</div>
+
+<script>
+/* ============ NAVEGACIÓN ============ */
+const slides=[...document.querySelectorAll('.slide')];
+let i=0;
+const dots=document.getElementById('dots');
+slides.forEach((_,k)=>{const d=document.createElement('i');d.onclick=()=>go(k);dots.appendChild(d)});
+function go(n){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('on'); i=n; slides[i].classList.add('on'); slides[i].scrollTop=0;
+  [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));
+  document.getElementById('cont').textContent=(i+1)+' / '+slides.length;
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('prev').disabled=(i===0);
+  document.getElementById('next').disabled=(i===slides.length-1);
+  anima(slides[i]);
+}
+document.getElementById('prev').onclick=()=>go(i-1);
+document.getElementById('next').onclick=()=>go(i+1);
+document.addEventListener('keydown',e=>{
+  if(['INPUT','TEXTAREA'].includes(e.target.tagName))return;
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(i+1)}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(i-1)}
+  if(e.key==='Home')go(0); if(e.key==='End')go(slides.length-1);
+  if(e.key.toLowerCase()==='f')document.documentElement.requestFullscreen?.();
+});
+let x0=null;
+document.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{
+  if(x0===null)return;
+  const dx=e.changedTouches[0].clientX-x0;
+  if(Math.abs(dx)>70) dx<0?go(i+1):go(i-1);
+  x0=null;
+},{passive:true});
+function anima(s){
+  s.querySelectorAll('[data-c]').forEach(el=>{
+    const fin=+el.dataset.c;let n=0;const paso=Math.max(1,Math.round(fin/26));
+    el.textContent='0';
+    const t=setInterval(()=>{n+=paso;if(n>=fin){n=fin;clearInterval(t)}el.textContent=n},28);
+  });
+}
+const fmt=n=>n.toLocaleString('es-CO',{maximumFractionDigits:2});
+const fmt0=n=>n.toLocaleString('es-CO',{maximumFractionDigits:0});
+
+/* ============ 1 · CALCULADORA DE PORCENTAJES ============ */
+let pcMode='a';
+function setPc(m){
+  pcMode=m;
+  ['a','b','c'].forEach(k=>document.getElementById('pc-'+k).classList.toggle('act',k===m));
+  const L1=document.getElementById('pcL1'), L2=document.getElementById('pcL2');
+  const V1=document.getElementById('pcV1'), V2=document.getElementById('pcV2');
+  if(m==='a'){ L1.textContent='Porcentaje (%)'; L2.textContent='Total (N)'; V1.value=15; V2.value=480;
+    document.getElementById('pcPreg').textContent='¿Cuánto es el 15 % de 480?'; }
+  if(m==='b'){ L1.textContent='Parte (P)'; L2.textContent='Total (N)'; V1.value=72; V2.value=480;
+    document.getElementById('pcPreg').textContent='¿Qué porcentaje es 72 de 480?'; }
+  if(m==='c'){ L1.textContent='Parte (P)'; L2.textContent='Porcentaje (%)'; V1.value=72; V2.value=15;
+    document.getElementById('pcPreg').textContent='Si 72 es el 15 %, ¿cuál es el total?'; }
+  calcPc();
+}
+function calcPc(){
+  const a=parseFloat(document.getElementById('pcV1').value);
+  const b=parseFloat(document.getElementById('pcV2').value);
+  const R=document.getElementById('pcR'), K=document.getElementById('pcK'),
+        F=document.getElementById('pcForm'), T=document.getElementById('pcTxt');
+  let pct=0, ok=true;
+  if(isNaN(a)||isNaN(b)){ R.textContent='—'; T.textContent='Complete los dos datos'; ok=false; }
+  else if(pcMode==='a'){
+    const r=b*a/100;
+    K.textContent='La parte'; F.textContent=`${fmt(b)} × ${fmt(a)} ÷ 100`;
+    R.textContent=fmt(r); pct=a;
+    T.textContent=`De un total de ${fmt(b)}, el ${fmt(a)} % corresponde a ${fmt(r)} unidades.`;
+    document.getElementById('pcPreg').textContent=`¿Cuánto es el ${fmt(a)} % de ${fmt(b)}?`;
+  }
+  else if(pcMode==='b'){
+    if(b===0){ R.textContent='indefinido'; T.textContent='El total no puede ser cero.'; ok=false; }
+    else { const r=a/b*100; K.textContent='El porcentaje'; F.textContent=`${fmt(a)} ÷ ${fmt(b)} × 100`;
+      R.textContent=fmt(r)+' %'; pct=r;
+      T.textContent=`${fmt(a)} representa el ${fmt(r)} % de ${fmt(b)}.`;
+      document.getElementById('pcPreg').textContent=`¿Qué porcentaje es ${fmt(a)} de ${fmt(b)}?`; }
+  }
+  else {
+    if(b===0){ R.textContent='indefinido'; T.textContent='El porcentaje no puede ser cero.'; ok=false; }
+    else { const r=a*100/b; K.textContent='El total'; F.textContent=`${fmt(a)} × 100 ÷ ${fmt(b)}`;
+      R.textContent=fmt(r); pct=b;
+      T.textContent=`Si ${fmt(a)} es el ${fmt(b)} %, el total es ${fmt(r)}.`;
+      document.getElementById('pcPreg').textContent=`Si ${fmt(a)} es el ${fmt(b)} %, ¿cuál es el total?`; }
+  }
+  if(!ok){ pct=0; F.textContent='—'; }
+  const p=Math.max(0,Math.min(100,pct));
+  const bar=document.getElementById('pcBar');
+  bar.style.width=p+'%'; bar.textContent=fmt(p)+' %';
+  // dona
+  const R0=62,cx=150,cy=85;
+  const ang=(p/100)*2*Math.PI-Math.PI/2;
+  const x1=cx+R0*Math.cos(-Math.PI/2), y1=cy+R0*Math.sin(-Math.PI/2);
+  const x2=cx+R0*Math.cos(ang), y2=cy+R0*Math.sin(ang);
+  const big=p>50?1:0;
+  let s=`<circle cx="${cx}" cy="${cy}" r="${R0}" fill="#e2e8f0"/>`;
+  if(p>0.4) s+=`<path d="M${cx} ${cy} L${x1} ${y1} A${R0} ${R0} 0 ${big} 1 ${x2} ${y2} Z" fill="#1d4e89"/>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="36" fill="#f6f8fc"/>`;
+  s+=`<text x="${cx}" y="${cy+8}" text-anchor="middle" font-size="21" font-weight="800" fill="#0b2545" font-family="Segoe UI">${fmt(p)}%</text>`;
+  s+=`<text x="${cx}" y="165" text-anchor="middle" font-size="12" fill="#64748b" font-family="Segoe UI">proporción sobre el total</text>`;
+  document.getElementById('pcSvg').innerHTML=s;
+}
+
+/* ============ 2 · VARIACIÓN PORCENTUAL ============ */
+function setVar(a,b){document.getElementById('vwIni').value=a;document.getElementById('vwFin').value=b;varW()}
+function varW(){
+  const a=parseFloat(document.getElementById('vwIni').value), b=parseFloat(document.getElementById('vwFin').value);
+  const A=document.getElementById('vwAbs'), P=document.getElementById('vwPct'), T=document.getElementById('vwTxt');
+  if(isNaN(a)||isNaN(b)){A.textContent='—';P.textContent='—';T.textContent='Ingrese ambos valores';return}
+  const d=b-a;
+  A.textContent=(d>=0?'+':'')+fmt(d)+' unidades';
+  if(a===0){P.textContent='indefinido';P.style.color='#fff';
+    T.textContent='No se puede calcular una variación porcentual desde cero: no hay base de comparación. Reporte solo la variación absoluta.';}
+  else{
+    const p=d/a*100;
+    P.textContent=(p>=0?'+':'')+fmt(p)+' %';
+    P.style.color = p>0?'#ff8fa3' : (p<0?'#8ef0d8':'#fff');
+    T.textContent = d===0 ? 'No hubo variación entre los dos periodos.'
+      : `Por cada 100 unidades iniciales, ${p>0?'se sumaron':'se restaron'} ${fmt(Math.abs(p))}. La variación absoluta (${fmt(Math.abs(d))}) y la relativa (${fmt(Math.abs(p))} %) son magnitudes distintas.`;
+  }
+  // gráfico
+  const mx=Math.max(Math.abs(a),Math.abs(b),1);
+  const h1=Math.abs(a)/mx*120, h2=Math.abs(b)/mx*120;
+  let s=`<text x="160" y="18" text-anchor="middle" font-size="13" font-weight="800" fill="#0b2545" font-family="Segoe UI">Comparación de periodos</text>`;
+  s+=`<rect x="70" y="${165-h1}" width="60" height="${h1}" fill="#1d4e89" rx="5"/>`;
+  s+=`<rect x="190" y="${165-h2}" width="60" height="${h2}" fill="${b>=a?'#e63946':'#1b998b'}" rx="5"/>`;
+  s+=`<text x="100" y="${160-h1}" text-anchor="middle" font-size="13" font-weight="800" fill="#1d4e89" font-family="Segoe UI">${fmt(a)}</text>`;
+  s+=`<text x="220" y="${160-h2}" text-anchor="middle" font-size="13" font-weight="800" fill="${b>=a?'#e63946':'#0f766e'}" font-family="Segoe UI">${fmt(b)}</text>`;
+  s+=`<line x1="40" y1="165" x2="290" y2="165" stroke="#94a3b8" stroke-width="2"/>`;
+  s+=`<text x="100" y="184" text-anchor="middle" font-size="12" font-weight="700" fill="#475569" font-family="Segoe UI">Inicial</text>`;
+  s+=`<text x="220" y="184" text-anchor="middle" font-size="12" font-weight="700" fill="#475569" font-family="Segoe UI">Final</text>`;
+  if(a!==0){
+    const p=(b-a)/a*100;
+    s+=`<text x="160" y="207" text-anchor="middle" font-size="18" font-weight="800" fill="${p>0?'#e63946':(p<0?'#0f766e':'#475569')}" font-family="Segoe UI">${p>=0?'+':''}${fmt(p)} %</text>`;
+  }
+  document.getElementById('vwSvg').innerHTML=s;
+}
+
+/* ============ 3 · VARIACIONES SUCESIVAS ============ */
+function sucesivas(){
+  const base=+document.getElementById('suBase').value;
+  const v1=+document.getElementById('su1').value, v2=+document.getElementById('su2').value;
+  document.getElementById('suBaseV').textContent=fmt0(base);
+  document.getElementById('su1V').textContent=(v1>=0?'+':'−')+Math.abs(v1)+' %';
+  document.getElementById('su2V').textContent=(v2>=0?'+':'−')+Math.abs(v2)+' %';
+  const p1=base*(1+v1/100), p2=p1*(1+v2/100);
+  const realPct=(p2-base)/base*100;
+  document.getElementById('suRuta').textContent=`${fmt0(base)} → ${fmt(p1)} → ${fmt(p2)}`;
+  document.getElementById('suIng').textContent=(v1+v2>=0?'+':'')+fmt(v1+v2)+' %  (incorrecto)';
+  const R=document.getElementById('suReal');
+  R.textContent=(realPct>=0?'+':'')+fmt(realPct)+' %';
+  R.style.color = realPct>0?'#8ef0d8' : (realPct<0?'#ff8fa3':'#fff');
+  // gráfico
+  const mx=Math.max(base,p1,p2,1);
+  const bh=v=>Math.max(2,v/mx*110);
+  let s=`<text x="160" y="16" text-anchor="middle" font-size="12.5" font-weight="800" fill="#0b2545" font-family="Segoe UI">Recorrido del valor</text>`;
+  const vals=[[base,'#1d4e89','Inicio'],[p1,'#e0a80d','Tras la 1ª'],[p2,'#7b2cbf','Tras la 2ª']];
+  vals.forEach((v,k)=>{
+    const x=50+k*90, h=bh(v[0]);
+    s+=`<rect x="${x}" y="${150-h}" width="58" height="${h}" fill="${v[1]}" rx="5"/>`;
+    s+=`<text x="${x+29}" y="${145-h}" text-anchor="middle" font-size="12" font-weight="800" fill="${v[1]}" font-family="Segoe UI">${fmt(v[0])}</text>`;
+    s+=`<text x="${x+29}" y="168" text-anchor="middle" font-size="11" font-weight="700" fill="#475569" font-family="Segoe UI">${v[2]}</text>`;
+  });
+  s+=`<line x1="25" y1="150" x2="300" y2="150" stroke="#94a3b8" stroke-width="2"/>`;
+  s+=`<line x1="50" y1="${150-bh(base)}" x2="300" y2="${150-bh(base)}" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+  s+=`<text x="160" y="192" text-anchor="middle" font-size="14" font-weight="800" fill="#0b2545" font-family="Segoe UI">Variación real: ${realPct>=0?'+':''}${fmt(realPct)} %</text>`;
+  document.getElementById('suSvg').innerHTML=s;
+}
+
+/* ============ 4 · PUNTOS PORCENTUALES ============ */
+function puntosPct(){
+  const a=+document.getElementById('ppA').value, b=+document.getElementById('ppB').value;
+  document.getElementById('ppAV').textContent=a;
+  document.getElementById('ppBV').textContent=b;
+  const pts=b-a, rel=(b-a)/a*100;
+  document.getElementById('ppPts').textContent=(pts>=0?'+':'')+fmt(pts)+' p.p.';
+  document.getElementById('ppRel').textContent=(rel>=0?'+':'')+fmt(rel)+' %';
+  document.getElementById('ppTxt').textContent=
+    `«La tasa pasó de ${a} % a ${b} %, es decir, ${pts>=0?'aumentó':'disminuyó'} ${fmt(Math.abs(pts))} puntos porcentuales, lo que equivale a un cambio relativo del ${fmt(Math.abs(rel))} %.»`;
+  let s=`<text x="130" y="17" text-anchor="middle" font-size="12.5" font-weight="800" fill="#0b2545" font-family="Segoe UI">Dos formas de medir el mismo cambio</text>`;
+  [[a,'#1d4e89',35,'Inicial'],[b,'#1b998b',145,'Final']].forEach(v=>{
+    const h=v[0]/100*140;
+    s+=`<rect x="${v[2]}" y="${175-h}" width="72" height="${h}" fill="${v[1]}" rx="5"/>`;
+    s+=`<rect x="${v[2]}" y="35" width="72" height="140" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+    s+=`<text x="${v[2]+36}" y="${170-h}" text-anchor="middle" font-size="14" font-weight="800" fill="${v[1]}" font-family="Segoe UI">${v[0]} %</text>`;
+    s+=`<text x="${v[2]+36}" y="193" text-anchor="middle" font-size="11.5" font-weight="700" fill="#475569" font-family="Segoe UI">${v[3]}</text>`;
+  });
+  s+=`<line x1="20" y1="175" x2="245" y2="175" stroke="#94a3b8" stroke-width="2"/>`;
+  s+=`<text x="130" y="216" text-anchor="middle" font-size="13" font-weight="800" fill="#0b2545" font-family="Segoe UI">${pts>=0?'+':''}${fmt(pts)} p.p.  ·  ${rel>=0?'+':''}${fmt(rel)} % relativo</text>`;
+  document.getElementById('ppSvg').innerHTML=s;
+}
+
+/* ============ 5 · REGLA DE TRES DIRECTA ============ */
+function rdCalc(){
+  const A=parseFloat(document.getElementById('rdVA').value),
+        B=parseFloat(document.getElementById('rdVB').value),
+        C=parseFloat(document.getElementById('rdVC').value);
+  document.getElementById('rdA').textContent=isNaN(A)?'—':fmt(A);
+  document.getElementById('rdB').textContent=isNaN(B)?'—':fmt(B);
+  document.getElementById('rdC').textContent=isNaN(C)?'—':fmt(C);
+  document.getElementById('rdProp').textContent=`${fmt(A)} → ${fmt(B)}   |   ${fmt(C)} → X`;
+  const R=document.getElementById('rdR'), K=document.getElementById('rdK');
+  if(isNaN(A)||isNaN(B)||isNaN(C)||A===0){R.textContent='—';K.textContent='Revise los valores (A no puede ser 0)';document.getElementById('rdSvg').innerHTML='';return}
+  const X=B*C/A;
+  R.textContent=fmt(X);
+  K.textContent=`k = ${fmt(B/A)} por unidad — se calculó (${fmt(B)} × ${fmt(C)}) ÷ ${fmt(A)}`;
+  // recta y = kx
+  const k=B/A, mxX=Math.max(A,C)*1.25, mxY=Math.max(B,X)*1.25;
+  const px=v=>35+v/mxX*220, py=v=>170-v/mxY*135;
+  let s=`<line x1="35" y1="170" x2="270" y2="170" stroke="#94a3b8" stroke-width="2"/>`;
+  s+=`<line x1="35" y1="170" x2="35" y2="25" stroke="#94a3b8" stroke-width="2"/>`;
+  s+=`<line x1="${px(0)}" y1="${py(0)}" x2="${px(mxX)}" y2="${py(k*mxX)}" stroke="#1d4e89" stroke-width="3.5" stroke-linecap="round"/>`;
+  s+=`<line x1="${px(A)}" y1="${py(0)}" x2="${px(A)}" y2="${py(B)}" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  s+=`<line x1="${px(0)}" y1="${py(B)}" x2="${px(A)}" y2="${py(B)}" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  s+=`<circle cx="${px(A)}" cy="${py(B)}" r="6" fill="#1d4e89" stroke="#fff" stroke-width="2.5"/>`;
+  s+=`<line x1="${px(C)}" y1="${py(0)}" x2="${px(C)}" y2="${py(X)}" stroke="#e0a80d" stroke-width="2" stroke-dasharray="4 3"/>`;
+  s+=`<line x1="${px(0)}" y1="${py(X)}" x2="${px(C)}" y2="${py(X)}" stroke="#e0a80d" stroke-width="2" stroke-dasharray="4 3"/>`;
+  s+=`<circle cx="${px(C)}" cy="${py(X)}" r="7" fill="#e0a80d" stroke="#fff" stroke-width="2.5"/>`;
+  s+=`<text x="${px(C)}" y="${py(X)-13}" text-anchor="middle" font-size="12.5" font-weight="800" fill="#8a6100" font-family="Segoe UI">X = ${fmt(X)}</text>`;
+  s+=`<text x="152" y="199" text-anchor="middle" font-size="12" font-weight="700" fill="#475569" font-family="Segoe UI">Proporción directa: recta desde el origen</text>`;
+  document.getElementById('rdSvg').innerHTML=s;
+}
+
+/* ============ 6 · REGLA DE TRES INVERSA ============ */
+function riCalc(){
+  const A=parseFloat(document.getElementById('riVA').value),
+        B=parseFloat(document.getElementById('riVB').value),
+        C=parseFloat(document.getElementById('riVC').value);
+  document.getElementById('riA').textContent=isNaN(A)?'—':fmt(A);
+  document.getElementById('riB').textContent=isNaN(B)?'—':fmt(B);
+  document.getElementById('riC').textContent=isNaN(C)?'—':fmt(C);
+  document.getElementById('riProp').textContent=`${fmt(A)} → ${fmt(B)}   |   ${fmt(C)} → X`;
+  const R=document.getElementById('riR'), K=document.getElementById('riK');
+  if(isNaN(A)||isNaN(B)||isNaN(C)||C===0){R.textContent='—';K.textContent='Revise los valores (C no puede ser 0)';document.getElementById('riSvg').innerHTML='';return}
+  const X=A*B/C;
+  R.textContent=fmt(X);
+  K.textContent=`A × B = ${fmt(A*B)} unidades-hora constantes — se calculó (${fmt(A)} × ${fmt(B)}) ÷ ${fmt(C)}`;
+  // hipérbola y = k/x
+  const k=A*B, mxX=Math.max(A,C)*1.6, mxY=Math.max(B,X)*1.35;
+  const px=v=>35+v/mxX*220, py=v=>170-v/mxY*135;
+  let s=`<line x1="35" y1="170" x2="270" y2="170" stroke="#94a3b8" stroke-width="2"/>`;
+  s+=`<line x1="35" y1="170" x2="35" y2="25" stroke="#94a3b8" stroke-width="2"/>`;
+  let pts=[];
+  for(let v=mxX/60; v<=mxX; v+=mxX/60){ const y=k/v; if(y<=mxY) pts.push(`${px(v)},${py(y)}`); }
+  s+=`<polyline points="${pts.join(' ')}" fill="none" stroke="#e63946" stroke-width="3.5" stroke-linecap="round"/>`;
+  s+=`<line x1="${px(A)}" y1="${py(0)}" x2="${px(A)}" y2="${py(B)}" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  s+=`<circle cx="${px(A)}" cy="${py(B)}" r="6" fill="#7a1220" stroke="#fff" stroke-width="2.5"/>`;
+  s+=`<line x1="${px(C)}" y1="${py(0)}" x2="${px(C)}" y2="${py(X)}" stroke="#e0a80d" stroke-width="2" stroke-dasharray="4 3"/>`;
+  s+=`<line x1="${px(0)}" y1="${py(X)}" x2="${px(C)}" y2="${py(X)}" stroke="#e0a80d" stroke-width="2" stroke-dasharray="4 3"/>`;
+  s+=`<circle cx="${px(C)}" cy="${py(X)}" r="7" fill="#e0a80d" stroke="#fff" stroke-width="2.5"/>`;
+  s+=`<text x="${px(C)}" y="${py(X)-13}" text-anchor="middle" font-size="12.5" font-weight="800" fill="#8a6100" font-family="Segoe UI">X = ${fmt(X)}</text>`;
+  s+=`<text x="152" y="199" text-anchor="middle" font-size="12" font-weight="700" fill="#475569" font-family="Segoe UI">Proporción inversa: curva, no recta</text>`;
+  document.getElementById('riSvg').innerHTML=s;
+}
+
+/* ============ 7 · ECUACIÓN PASO A PASO ============ */
+let ecPasos=[], ecIdx=0, ecSol=0;
+function ecuInit(){
+  let a=+document.getElementById('ecA').value;
+  const b=+document.getElementById('ecB').value, c=+document.getElementById('ecC').value;
+  if(a===0){ a=1; document.getElementById('ecA').value=1; }
+  document.getElementById('ecAV').textContent=a;
+  document.getElementById('ecBV').textContent=b;
+  document.getElementById('ecCV').textContent=c;
+  const sb = b<0 ? `− ${Math.abs(b)}` : `+ ${b}`;
+  const eq = `${a}x ${sb} = ${c}`;
+  document.getElementById('ecEq').textContent=eq;
+  ecSol=(c-b)/a;
+  ecPasos=[
+    {q:`Paso 1 — quitar el término independiente`,
+     t:`${b<0?'sumamos':'restamos'} ${Math.abs(b)} a ambos lados`,
+     r:`${a}x = ${c} ${b<0?'+':'−'} ${Math.abs(b)}`},
+    {q:`Paso 2 — simplificar el lado derecho`,
+     t:`${c} ${b<0?'+':'−'} ${Math.abs(b)} = ${fmt(c-b)}`,
+     r:`${a}x = <mark>${fmt(c-b)}</mark>`},
+    {q:`Paso 3 — despejar la incógnita`,
+     t:`dividimos ambos lados entre ${a}`,
+     r:`x = ${fmt(c-b)} ÷ ${a}`},
+    {q:`Solución`,
+     t:`resultado final`,
+     r:`x = <mark>${fmt(ecSol)}</mark>`}
+  ];
+  ecIdx=0; ecPintar();
+  document.getElementById('ecVerif').textContent='Avance los pasos para ver la comprobación';
+  ecBalanza(false);
+}
+function ecPintar(){
+  document.getElementById('ecPasos').innerHTML=ecPasos.map((p,k)=>
+    `<div class="paso-op ${k<ecIdx?'on':''}"><span class="q">${p.q} — ${p.t}</span><code>${p.r}</code></div>`).join('');
+  const btn=document.getElementById('ecBtn');
+  btn.disabled = ecIdx>=ecPasos.length;
+  btn.textContent = ecIdx>=ecPasos.length ? `✓ x = ${fmt(ecSol)}` : 'Siguiente paso ▶';
+  if(ecIdx>=ecPasos.length){
+    const a=+document.getElementById('ecA').value, b=+document.getElementById('ecB').value, c=+document.getElementById('ecC').value;
+    document.getElementById('ecVerif').textContent=`${a} × ${fmt(ecSol)} ${b<0?'−':'+'} ${Math.abs(b)} = ${fmt(a*ecSol+b)} ✓ coincide con ${c}`;
+    ecBalanza(true);
+  }
+}
+function ecuPaso(){ if(ecIdx<ecPasos.length){ecIdx++;ecPintar()} }
+function ecBalanza(res){
+  const a=+document.getElementById('ecA').value, b=+document.getElementById('ecB').value, c=+document.getElementById('ecC').value;
+  const izq = res ? `x = ${fmt(ecSol)}` : `${a}x ${b<0?'−':'+'} ${Math.abs(b)}`;
+  const der = res ? `${fmt(ecSol)}` : `${c}`;
+  let s=`<line x1="140" y1="55" x2="140" y2="160" stroke="#64748b" stroke-width="6" stroke-linecap="round"/>`;
+  s+=`<polygon points="140,160 108,182 172,182" fill="#64748b"/>`;
+  s+=`<line x1="45" y1="55" x2="235" y2="55" stroke="#1d4e89" stroke-width="6" stroke-linecap="round"/>`;
+  s+=`<circle cx="140" cy="55" r="9" fill="#e0a80d" stroke="#fff" stroke-width="3"/>`;
+  s+=`<line x1="72" y1="55" x2="72" y2="85" stroke="#94a3b8" stroke-width="2.5"/>`;
+  s+=`<line x1="208" y1="55" x2="208" y2="85" stroke="#94a3b8" stroke-width="2.5"/>`;
+  s+=`<rect x="26" y="85" width="92" height="42" rx="9" fill="#1d4e89" opacity=".88"/>`;
+  s+=`<text x="72" y="112" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Segoe UI">${izq}</text>`;
+  s+=`<rect x="162" y="85" width="92" height="42" rx="9" fill="${res?'#1b998b':'#7b2cbf'}" opacity=".88"/>`;
+  s+=`<text x="208" y="112" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Segoe UI">${der}</text>`;
+  s+=`<text x="140" y="30" text-anchor="middle" font-size="13" font-weight="800" fill="${res?'#0f766e':'#0b2545'}" font-family="Segoe UI">${res?'RESUELTA':'EN EQUILIBRIO'}</text>`;
+  document.getElementById('ecSvg').innerHTML=s;
+}
+
+/* ============ 8 · PRESUPUESTO (DESPEJE) ============ */
+function presu(){
+  const P=+document.getElementById('prS').value;
+  document.getElementById('prV').textContent='$'+P.toLocaleString('es-CO');
+  const x=(P-800000)/45000;
+  document.getElementById('prEq').textContent=`x = (${P.toLocaleString('es-CO')} − 800.000) ÷ 45.000`;
+  document.getElementById('prExac').textContent=fmt(x)+' unidades';
+  const ent=Math.max(0,Math.floor(x));
+  const usado=800000+ent*45000;
+  document.getElementById('prReal').textContent=
+    `Se pueden desplegar ${ent} unidades. Costo: $${usado.toLocaleString('es-CO')}. Sobran $${(P-usado).toLocaleString('es-CO')}.`;
+}
+
+/* ============ 9 · MEDIA, MEDIANA, MODA ============ */
+function setMM(v){document.getElementById('mmDatos').value=v;calcMM()}
+function calcMM(){
+  const raw=document.getElementById('mmDatos').value;
+  const d=raw.split(/[,;\s]+/).map(s=>parseFloat(s.replace(',','.'))).filter(v=>!isNaN(v));
+  const M=document.getElementById('mmMedia'), Me=document.getElementById('mmMediana'), Mo=document.getElementById('mmModa');
+  if(d.length===0){M.textContent='—';Me.textContent='—';Mo.textContent='—';
+    document.getElementById('mmOrd').textContent='Escriba números separados por comas';
+    document.getElementById('mmSvg').innerHTML='';return}
+  const ord=[...d].sort((a,b)=>a-b);
+  const suma=d.reduce((s,v)=>s+v,0);
+  const media=suma/d.length;
+  const n=ord.length;
+  const mediana = n%2 ? ord[(n-1)/2] : (ord[n/2-1]+ord[n/2])/2;
+  const freq={}; ord.forEach(v=>freq[v]=(freq[v]||0)+1);
+  const maxF=Math.max(...Object.values(freq));
+  const modas=Object.keys(freq).filter(k=>freq[k]===maxF).map(Number);
+  M.textContent=fmt(media); Me.textContent=fmt(mediana);
+  Mo.textContent = maxF===1 ? 'no hay' : modas.map(fmt).join(' · ');
+  Mo.style.fontSize = modas.length>2 ? '17px' : '26px';
+  document.getElementById('mmN').textContent=n;
+  document.getElementById('mmRango').textContent=fmt(ord[n-1]-ord[0]);
+  document.getElementById('mmSuma').textContent=fmt(suma);
+  document.getElementById('mmOrd').textContent=ord.map(fmt).join(' · ');
+  dotPlot('mmSvg',ord,media,mediana,maxF===1?null:modas);
+}
+function dotPlot(id,ord,media,mediana,modas){
+  const n=ord.length, mn=ord[0], mx=ord[n-1], span=(mx-mn)||1;
+  const px=v=>30+(v-mn)/span*240;
+  const cnt={};
+  let s=`<text x="150" y="16" text-anchor="middle" font-size="12.5" font-weight="800" fill="#0b2545" font-family="Segoe UI">Distribución de los datos</text>`;
+  s+=`<line x1="25" y1="185" x2="290" y2="185" stroke="#94a3b8" stroke-width="2"/>`;
+  ord.forEach(v=>{
+    cnt[v]=(cnt[v]||0)+1;
+    const y=178-(cnt[v]-1)*15;
+    const esModa = modas && modas.includes(v);
+    s+=`<circle cx="${px(v)}" cy="${y}" r="6.5" fill="${esModa?'#e0a80d':'#1d4e89'}" stroke="#fff" stroke-width="1.8"/>`;
+  });
+  [...new Set(ord)].forEach(v=>{
+    s+=`<text x="${px(v)}" y="200" text-anchor="middle" font-size="10.5" font-weight="700" fill="#64748b" font-family="Segoe UI">${fmt(v)}</text>`;
+  });
+  s+=`<line x1="${px(media)}" y1="30" x2="${px(media)}" y2="185" stroke="#e63946" stroke-width="2.5" stroke-dasharray="6 4"/>`;
+  s+=`<text x="${px(media)}" y="26" text-anchor="middle" font-size="11.5" font-weight="800" fill="#e63946" font-family="Segoe UI">Media ${fmt(media)}</text>`;
+  s+=`<line x1="${px(mediana)}" y1="45" x2="${px(mediana)}" y2="185" stroke="#1b998b" stroke-width="2.5" stroke-dasharray="6 4"/>`;
+  s+=`<text x="${px(mediana)}" y="42" text-anchor="middle" font-size="11.5" font-weight="800" fill="#0f766e" font-family="Segoe UI">Mediana ${fmt(mediana)}</text>`;
+  if(modas) s+=`<text x="150" y="225" text-anchor="middle" font-size="11.5" font-weight="700" fill="#8a6100" font-family="Segoe UI">● en dorado: valor(es) más frecuente(s)</text>`;
+  s+=`<text x="150" y="243" text-anchor="middle" font-size="11" fill="#64748b" font-family="Segoe UI">cada punto es un dato; se apilan si se repiten</text>`;
+  document.getElementById(id).innerHTML=s;
+}
+
+/* ============ 10 · VALOR ATÍPICO ============ */
+function atipico(){
+  const v=+document.getElementById('atS').value;
+  document.getElementById('atV').textContent=v+' min';
+  const d=[8,8,8,8,8,8,8,8,8,v];
+  const ord=[...d].sort((a,b)=>a-b);
+  const media=d.reduce((s,x)=>s+x,0)/d.length;
+  const mediana=(ord[4]+ord[5])/2;
+  document.getElementById('atMedia').textContent=fmt(media)+' min';
+  document.getElementById('atMediana').textContent=fmt(mediana)+' min';
+  const dif=media-mediana;
+  document.getElementById('atTxt').textContent = Math.abs(dif)<0.6
+    ? 'Sin valores extremos, media y mediana casi coinciden: cualquiera de las dos describe bien el conjunto.'
+    : `La media (${fmt(media)}) se desplazó ${fmt(Math.abs(dif))} minutos respecto de la mediana (${fmt(mediana)}), arrastrada por un solo dato de ${v} min. Nueve de los diez casos fueron de 8 minutos: la mediana describe mejor el desempeño habitual.`;
+  // gráfico
+  const mx=Math.max(...d,1);
+  let s=`<text x="150" y="15" text-anchor="middle" font-size="12" font-weight="800" fill="#0b2545" font-family="Segoe UI">Diez tiempos de respuesta (min)</text>`;
+  d.forEach((val,k)=>{
+    const h=val/mx*115, x=22+k*27;
+    s+=`<rect x="${x}" y="${150-h}" width="20" height="${h}" fill="${k===9?'#e63946':'#1d4e89'}" rx="3"/>`;
+  });
+  s+=`<line x1="15" y1="150" x2="292" y2="150" stroke="#94a3b8" stroke-width="2"/>`;
+  const ym=150-media/mx*115, yme=150-mediana/mx*115;
+  s+=`<line x1="15" y1="${ym}" x2="292" y2="${ym}" stroke="#e63946" stroke-width="2.5" stroke-dasharray="6 4"/>`;
+  s+=`<text x="296" y="${ym+4}" font-size="10.5" font-weight="800" fill="#e63946" font-family="Segoe UI" text-anchor="end">media</text>`;
+  s+=`<line x1="15" y1="${yme}" x2="292" y2="${yme}" stroke="#1b998b" stroke-width="2.5" stroke-dasharray="6 4"/>`;
+  s+=`<text x="296" y="${yme-5}" font-size="10.5" font-weight="800" fill="#0f766e" font-family="Segoe UI" text-anchor="end">mediana</text>`;
+  s+=`<text x="150" y="172" text-anchor="middle" font-size="11.5" font-weight="700" fill="#475569" font-family="Segoe UI">la barra roja es el caso que usted controla</text>`;
+  document.getElementById('atSvg').innerHTML=s;
+}
+
+/* ============ 11 · SELECTOR DE GRÁFICO ============ */
+let gfTipo='bar';
+const GF=[['Hurto',42,'#1d4e89'],['Lesiones',28,'#1b998b'],['Estafa',18,'#e0a80d'],['Daños',12,'#7b2cbf']];
+function setGraf(t){
+  gfTipo=t;
+  ['bar','pie','lin'].forEach(k=>document.getElementById('gf-'+k).classList.toggle('act',k===t));
+  const txt={bar:'Barras: ideal para comparar magnitudes entre categorías. El eje debe empezar en cero.',
+             pie:'Circular: muestra la participación de cada parte en el total. Úselo solo si las partes suman 100 %.',
+             lin:'Líneas: sugiere continuidad. En este caso las categorías NO tienen orden temporal, así que este gráfico sería incorrecto.'};
+  document.getElementById('gfTxt').textContent=txt[t];
+  dibujarGraf();
+}
+function gfInit(){
+  document.getElementById('gfCtrls').innerHTML=GF.map((g,k)=>
+    `<div class="ctrl"><label>${g[0]} <b id="gfV${k}">${g[1]}</b></label>
+     <input type="range" id="gfS${k}" min="1" max="60" value="${g[1]}" oninput="dibujarGraf()"></div>`).join('');
+  setGraf('bar');
+}
+function dibujarGraf(){
+  const vals=GF.map((g,k)=>{
+    const v=+document.getElementById('gfS'+k).value;
+    document.getElementById('gfV'+k).textContent=v;
+    return v;
+  });
+  const tot=vals.reduce((s,v)=>s+v,0);
+  document.getElementById('gfTotal').textContent=fmt(tot)+' casos';
+  let s='';
+  if(gfTipo==='bar'){
+    const mx=Math.max(...vals);
+    vals.forEach((v,k)=>{
+      const h=v/mx*190, x=55+k*92;
+      s+=`<rect x="${x}" y="${240-h}" width="62" height="${h}" fill="${GF[k][2]}" rx="6"/>`;
+      s+=`<text x="${x+31}" y="${234-h}" text-anchor="middle" font-size="15" font-weight="800" fill="${GF[k][2]}" font-family="Segoe UI">${v}</text>`;
+      s+=`<text x="${x+31}" y="260" text-anchor="middle" font-size="12.5" font-weight="700" fill="#475569" font-family="Segoe UI">${GF[k][0]}</text>`;
+    });
+    s+=`<line x1="30" y1="240" x2="420" y2="240" stroke="#94a3b8" stroke-width="2.5"/>`;
+    s+=`<text x="30" y="255" font-size="11" fill="#64748b" font-family="Segoe UI">0</text>`;
+    s+=`<text x="220" y="24" text-anchor="middle" font-size="14" font-weight="800" fill="#0b2545" font-family="Segoe UI">Delitos por tipo — gráfico de barras</text>`;
+  }
+  if(gfTipo==='pie'){
+    const cx=160,cy=155,R=105; let ang=-Math.PI/2;
+    vals.forEach((v,k)=>{
+      const a2=ang+(v/tot)*2*Math.PI;
+      const x1=cx+R*Math.cos(ang), y1=cy+R*Math.sin(ang);
+      const x2=cx+R*Math.cos(a2), y2=cy+R*Math.sin(a2);
+      const big=(a2-ang)>Math.PI?1:0;
+      s+=`<path d="M${cx} ${cy} L${x1} ${y1} A${R} ${R} 0 ${big} 1 ${x2} ${y2} Z" fill="${GF[k][2]}" stroke="#fff" stroke-width="2.5"/>`;
+      const am=(ang+a2)/2, lx=cx+R*0.65*Math.cos(am), ly=cy+R*0.65*Math.sin(am);
+      if(v/tot>0.06) s+=`<text x="${lx}" y="${ly+5}" text-anchor="middle" font-size="14" font-weight="800" fill="#fff" font-family="Segoe UI">${(v/tot*100).toFixed(0)}%</text>`;
+      ang=a2;
+    });
+    GF.forEach((g,k)=>{
+      s+=`<rect x="300" y="${88+k*30}" width="16" height="16" fill="${g[2]}" rx="3"/>`;
+      s+=`<text x="324" y="${101+k*30}" font-size="13" font-weight="700" fill="#334155" font-family="Segoe UI">${g[0]} (${vals[k]})</text>`;
+    });
+    s+=`<text x="220" y="24" text-anchor="middle" font-size="14" font-weight="800" fill="#0b2545" font-family="Segoe UI">Composición del total — gráfico circular</text>`;
+  }
+  if(gfTipo==='lin'){
+    const mx=Math.max(...vals);
+    const px=k=>70+k*95, py=v=>235-v/mx*180;
+    let pts=vals.map((v,k)=>`${px(k)},${py(v)}`).join(' ');
+    s+=`<polyline points="${pts}" fill="none" stroke="#e63946" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`;
+    vals.forEach((v,k)=>{
+      s+=`<circle cx="${px(k)}" cy="${py(v)}" r="7" fill="#e63946" stroke="#fff" stroke-width="2.5"/>`;
+      s+=`<text x="${px(k)}" y="${py(v)-15}" text-anchor="middle" font-size="14" font-weight="800" fill="#e63946" font-family="Segoe UI">${v}</text>`;
+      s+=`<text x="${px(k)}" y="258" text-anchor="middle" font-size="12.5" font-weight="700" fill="#475569" font-family="Segoe UI">${GF[k][0]}</text>`;
+    });
+    s+=`<line x1="35" y1="240" x2="420" y2="240" stroke="#94a3b8" stroke-width="2.5"/>`;
+    s+=`<text x="220" y="24" text-anchor="middle" font-size="14" font-weight="800" fill="#a01722" font-family="Segoe UI">⚠ Uso incorrecto: estas categorías no son una serie temporal</text>`;
+  }
+  document.getElementById('gfSvg').innerHTML=s;
+}
+
+/* ============ 12 · EJE TRUNCADO ============ */
+function truncado(){
+  const base=+document.getElementById('trS').value;
+  document.getElementById('trV').textContent=base;
+  const d=[96,97,98,99,100];
+  const top=101, rango=top-base;
+  let s=`<text x="160" y="16" text-anchor="middle" font-size="12.5" font-weight="800" fill="#0b2545" font-family="Segoe UI">Los mismos cinco datos</text>`;
+  d.forEach((v,k)=>{
+    const h=Math.max(1,(v-base)/rango*160);
+    const x=35+k*55;
+    s+=`<rect x="${x}" y="${195-h}" width="40" height="${h}" fill="#1d4e89" rx="4"/>`;
+    s+=`<text x="${x+20}" y="${190-h}" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1d4e89" font-family="Segoe UI">${v}</text>`;
+    s+=`<text x="${x+20}" y="212" text-anchor="middle" font-size="10.5" font-weight="700" fill="#64748b" font-family="Segoe UI">P${k+1}</text>`;
+  });
+  s+=`<line x1="22" y1="195" x2="300" y2="195" stroke="#94a3b8" stroke-width="2.5"/>`;
+  s+=`<text x="18" y="199" text-anchor="end" font-size="11" font-weight="800" fill="${base>0?'#e63946':'#64748b'}" font-family="Segoe UI">${base}</text>`;
+  const alerta = base===0 ? 'Eje completo: la variación se ve tal como es' : 'Eje truncado: la diferencia aparece exagerada';
+  s+=`<text x="160" y="236" text-anchor="middle" font-size="12.5" font-weight="800" fill="${base>0?'#e63946':'#0f766e'}" font-family="Segoe UI">${alerta}</text>`;
+  document.getElementById('trSvg').innerHTML=s;
+  const T=document.getElementById('trTxt');
+  if(base===0) T.textContent='Con el eje desde cero, las cinco barras se ven casi iguales, que es exactamente lo que dicen los datos: apenas 4,2 % de diferencia entre el primero y el último.';
+  else if(base<80) T.textContent=`Con el eje empezando en ${base}, la última barra ya parece notablemente mayor que la primera, aunque la diferencia real sigue siendo de apenas 4,2 %.`;
+  else T.textContent=`Con el eje en ${base}, la última barra parece varias veces más alta que la primera. Un lector desprevenido concluiría que hubo un crecimiento enorme. La diferencia real no ha cambiado: sigue siendo 4,2 %.`;
+}
+
+/* ============ 13 · AUTOEVALUACIÓN ============ */
+const QZ=[
+ {p:'Un indicador pasó de 80 a 100. ¿Cuál fue la variación porcentual?',
+  o:['+20 %','+25 %','+80 %','+125 %'],c:1,
+  f:'(100 − 80) ÷ 80 = 0,25 → +25 %. Siempre se divide entre el valor INICIAL. Dividir entre 100 daría 20 %, que es el error más común.'},
+ {p:'Un precio sube 20 % y luego baja 20 %. ¿Qué ocurre con el valor final?',
+  o:['Vuelve al valor original','Queda 4 % por debajo','Queda 4 % por encima','Queda 40 % por debajo'],c:1,
+  f:'Los porcentajes se multiplican: 1,20 × 0,80 = 0,96, es decir, un 4 % por debajo del original. Las variaciones sucesivas nunca se suman.'},
+ {p:'La tasa de esclarecimiento pasó de 30 % a 36 %. ¿Cómo se redacta correctamente?',
+  o:['Aumentó 6 %','Aumentó 20 %','Aumentó 6 puntos porcentuales (20 % relativo)','Aumentó 36 %'],c:2,
+  f:'Cuando el dato que cambia ya es un porcentaje, la diferencia se expresa en PUNTOS PORCENTUALES (6 p.p.) y el cambio relativo por separado (6÷30 = 20 %). Decir solo «aumentó 6 %» es incorrecto.'},
+ {p:'Si 6 unidades terminan un operativo en 12 horas, ¿cuánto tardarían 9 unidades?',
+  o:['18 horas','8 horas','6 horas','9 horas'],c:1,
+  f:'Es proporción INVERSA: más unidades, menos tiempo. X = (6 × 12) ÷ 9 = 8 horas. Aplicar la regla directa daría 18 horas, que es absurdo: más gente no puede tardar más.'},
+ {p:'Nueve personas ganan $2.000.000 y una gana $30.000.000. ¿Qué medida describe mejor el salario típico?',
+  o:['La media, porque usa todos los datos','La mediana, porque no la afecta el valor extremo','La moda, porque no hay repeticiones','El rango'],c:1,
+  f:'La media da $4.800.000, una cifra que nadie gana. La mediana es $2.000.000 y sí describe a la persona típica. Con valores atípicos, la mediana es más representativa.'},
+ {p:'Un gráfico de barras muestra un crecimiento espectacular, pero el eje vertical empieza en 95. ¿Qué debe hacer?',
+  o:['Confiar: los datos son los datos','Verificar la magnitud real del cambio','Rechazar el gráfico por falso','Convertirlo en gráfico circular'],c:1,
+  f:'Los datos pueden ser correctos; lo engañoso es la escala. Un eje truncado amplifica visualmente diferencias pequeñas. Calcule la variación porcentual real antes de concluir nada.'}
+];
+let qzI=0,qzS=0;
+function qzPintar(){
+  const q=QZ[qzI];
+  document.getElementById('qzNum').textContent=`Pregunta ${qzI+1} de ${QZ.length}`;
+  document.getElementById('qzTxt').textContent=q.p;
+  document.getElementById('qzOpts').innerHTML=q.o.map((t,k)=>
+    `<div class="opt" onclick="qzResp(${k})"><span class="k">${'ABCD'[k]}</span> ${t}</div>`).join('');
+  document.getElementById('qzFb').classList.remove('show');
+  document.getElementById('qzNext').disabled=true;
+}
+function qzResp(k){
+  const q=QZ[qzI], opts=[...document.getElementById('qzOpts').children];
+  opts.forEach(o=>o.onclick=null);
+  opts[q.c].classList.add('ok');
+  if(k===q.c){qzS++} else {opts[k].classList.add('no')}
+  document.getElementById('qzScore').textContent=qzS;
+  const fb=document.getElementById('qzFb');
+  fb.innerHTML=(k===q.c?'✅ <b>Correcto.</b> ':'❌ <b>Revisemos.</b> ')+q.f;
+  fb.classList.add('show');
+  document.getElementById('qzNext').disabled=false;
+}
+function qzSig(){
+  if(qzI<QZ.length-1){qzI++;qzPintar()}
+  else{
+    document.getElementById('qzNum').textContent='Resultado final';
+    document.getElementById('qzTxt').innerHTML=`Obtuvo <b style="color:var(--oro2);font-size:26px">${qzS} de ${QZ.length}</b> respuestas correctas.`;
+    document.getElementById('qzOpts').innerHTML='';
+    const fb=document.getElementById('qzFb');
+    fb.innerHTML = qzS===6 ? '🏆 <b>Excelente.</b> Domina los seis bloques del taller.'
+      : qzS>=5 ? '👍 <b>Muy bien.</b> Repase el punto que falló y quedará completo.'
+      : qzS>=3 ? '📖 <b>Vamos bien.</b> Vuelva sobre los simuladores de los bloques donde falló.'
+      : '🔄 <b>A repasar.</b> Recorra otra vez el taller manipulando cada simulador: es la forma más rápida de fijar estos conceptos.';
+    fb.classList.add('show');
+    const btn=document.getElementById('qzNext');
+    btn.textContent='↺ Repetir';
+    btn.onclick=()=>{qzI=0;qzS=0;document.getElementById('qzScore').textContent=0;
+      btn.textContent='Siguiente ▶';btn.onclick=qzSig;qzPintar()};
+  }
+}
+
+/* ============ ARRANQUE ============ */
+setPc('a'); varW(); sucesivas(); puntosPct(); rdCalc(); riCalc();
+ecuInit(); presu(); calcMM(); atipico(); gfInit(); truncado(); qzPintar();
+go(0);
+</script>
+</body>
+</html>
